@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import type { StateCode } from '../types/question';
+import type { StateCode, TranslationLang } from '../types/question';
 import type { CloudSyncPayload } from '../services/supabase';
 
 export type ThemeMode = 'dark' | 'light';
@@ -37,13 +37,15 @@ interface AppState {
   syncStatus: SyncStatus;
   syncError: string | null;
   lastSyncedAt: number | null;
-  syncRevision: number; // increments only on local user mutations to trigger debounced cloud push
+  syncRevision: number;
 
   // Persisted & cloud-synced personal settings
   selectedState: StateCode;
   theme: ThemeMode;
   apiKey: string;
   aiModel: string;
+  translationLang: TranslationLang;
+  alwaysShowTranslation: boolean;
   settingsUpdatedAt: number;
 
   // Persisted & cloud-synced learning data
@@ -62,6 +64,8 @@ interface AppState {
   toggleTheme: () => void;
   setApiKey: (key: string) => void;
   setAiModel: (model: string) => void;
+  setTranslationLang: (lang: TranslationLang) => void;
+  setAlwaysShowTranslation: (show: boolean) => void;
 
   // Learning & AI cache actions
   recordAnswer: (questionId: string, selectedIndex: number, isCorrect: boolean) => void;
@@ -106,6 +110,8 @@ export const useAppStore = create<AppState>()(
       theme: 'dark',
       apiKey: '',
       aiModel: 'gemini-2.5-flash',
+      translationLang: 'none',
+      alwaysShowTranslation: true,
       settingsUpdatedAt: 0,
 
       progress: {},
@@ -159,6 +165,20 @@ export const useAppStore = create<AppState>()(
       setAiModel: (aiModel) =>
         set((state) => ({
           aiModel,
+          settingsUpdatedAt: Date.now(),
+          syncRevision: state.syncRevision + 1,
+        })),
+
+      setTranslationLang: (translationLang) =>
+        set((state) => ({
+          translationLang,
+          settingsUpdatedAt: Date.now(),
+          syncRevision: state.syncRevision + 1,
+        })),
+
+      setAlwaysShowTranslation: (alwaysShowTranslation) =>
+        set((state) => ({
+          alwaysShowTranslation,
           settingsUpdatedAt: Date.now(),
           syncRevision: state.syncRevision + 1,
         })),
@@ -219,7 +239,7 @@ export const useAppStore = create<AppState>()(
       setAuthUser: (authUser) =>
         set({
           authUser,
-          syncStatus: authUser ? 'idle' : 'idle',
+          syncStatus: 'idle',
           syncError: null,
         }),
 
@@ -237,6 +257,8 @@ export const useAppStore = create<AppState>()(
           theme: s.theme,
           apiKey: s.apiKey,
           aiModel: s.aiModel,
+          translationLang: s.translationLang,
+          alwaysShowTranslation: s.alwaysShowTranslation,
           settingsUpdatedAt: s.settingsUpdatedAt,
           progress: s.progress,
           aiCache: s.aiCache,
@@ -246,7 +268,6 @@ export const useAppStore = create<AppState>()(
       mergeWithCloudPayload: (remote) => {
         const local = get();
 
-        // Merge question progress by newest updatedAt per question
         const mergedProgress: Record<string, QuestionProgress> = { ...remote.progress };
         for (const [qId, localEntry] of Object.entries(local.progress)) {
           const remoteEntry = mergedProgress[qId];
@@ -255,7 +276,6 @@ export const useAppStore = create<AppState>()(
           }
         }
 
-        // Merge AI explanations cache by newest createdAt per question
         const mergedAiCache: Record<string, CachedExplanation> = { ...remote.aiCache };
         for (const [qId, localCache] of Object.entries(local.aiCache)) {
           const remoteCache = mergedAiCache[qId];
@@ -264,11 +284,16 @@ export const useAppStore = create<AppState>()(
           }
         }
 
-        // Choose newer settings, while preserving non-empty API key if one side was empty
         const remoteNewer = (remote.settingsUpdatedAt ?? 0) >= (local.settingsUpdatedAt ?? 0);
         const mergedState: StateCode = remoteNewer ? remote.selectedState : local.selectedState;
         const mergedTheme: ThemeMode = remoteNewer ? remote.theme : local.theme;
         const mergedModel = remoteNewer ? remote.aiModel : local.aiModel;
+        const mergedTranslationLang: TranslationLang = remoteNewer
+          ? remote.translationLang
+          : local.translationLang;
+        const mergedAlwaysShow = remoteNewer
+          ? remote.alwaysShowTranslation
+          : local.alwaysShowTranslation;
         const mergedApiKey = remoteNewer
           ? remote.apiKey || local.apiKey
           : local.apiKey || remote.apiKey;
@@ -285,6 +310,8 @@ export const useAppStore = create<AppState>()(
           theme: mergedTheme,
           apiKey: mergedApiKey,
           aiModel: mergedModel,
+          translationLang: mergedTranslationLang,
+          alwaysShowTranslation: mergedAlwaysShow,
           settingsUpdatedAt: mergedSettingsUpdatedAt,
           progress: mergedProgress,
           aiCache: mergedAiCache,
@@ -295,6 +322,8 @@ export const useAppStore = create<AppState>()(
           theme: mergedPayload.theme,
           apiKey: mergedPayload.apiKey,
           aiModel: mergedPayload.aiModel,
+          translationLang: mergedPayload.translationLang,
+          alwaysShowTranslation: mergedPayload.alwaysShowTranslation,
           settingsUpdatedAt: mergedPayload.settingsUpdatedAt,
           progress: mergedPayload.progress,
           aiCache: mergedPayload.aiCache,
@@ -305,13 +334,14 @@ export const useAppStore = create<AppState>()(
 
       applyRemoteRealtimeUpdate: (remote) => {
         const local = get();
-        // Avoid overwriting if this exact settings timestamp & progress are already applied
         applyThemeToDocument(remote.theme);
         set({
           selectedState: remote.selectedState,
           theme: remote.theme,
           apiKey: remote.apiKey,
           aiModel: remote.aiModel,
+          translationLang: remote.translationLang,
+          alwaysShowTranslation: remote.alwaysShowTranslation,
           settingsUpdatedAt: Math.max(remote.settingsUpdatedAt ?? 0, local.settingsUpdatedAt ?? 0),
           progress: remote.progress ?? {},
           aiCache: remote.aiCache ?? {},
@@ -329,6 +359,8 @@ export const useAppStore = create<AppState>()(
         theme: state.theme,
         apiKey: state.apiKey,
         aiModel: state.aiModel,
+        translationLang: state.translationLang,
+        alwaysShowTranslation: state.alwaysShowTranslation,
         settingsUpdatedAt: state.settingsUpdatedAt,
         progress: state.progress,
         aiCache: state.aiCache,

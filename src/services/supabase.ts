@@ -1,12 +1,18 @@
 import { createClient, type SupabaseClient, type User } from '@supabase/supabase-js';
-import type { StateCode } from '../types/question';
+import type { StateCode, TranslationLang } from '../types/question';
 import type { CachedExplanation, QuestionProgress, ThemeMode } from '../store/useAppStore';
 
 const LOCAL_SUPABASE_CONFIG_KEY = 'lid-supabase-custom-config-v1';
+const SYNC_PREFS_META_KEY = '__sync_prefs__';
 
 export interface SupabaseRuntimeConfig {
   url: string;
   anonKey: string;
+}
+
+interface EmbeddedSyncPrefs {
+  translationLang?: TranslationLang;
+  alwaysShowTranslation?: boolean;
 }
 
 export interface CloudSyncPayload {
@@ -14,6 +20,8 @@ export interface CloudSyncPayload {
   theme: ThemeMode;
   apiKey: string;
   aiModel: string;
+  translationLang: TranslationLang;
+  alwaysShowTranslation: boolean;
   settingsUpdatedAt: number;
   progress: Record<string, QuestionProgress>;
   aiCache: Record<string, CachedExplanation>;
@@ -28,7 +36,7 @@ interface UserSyncRow {
   ai_model: string;
   settings_updated_at: number;
   progress: Record<string, QuestionProgress>;
-  ai_cache: Record<string, CachedExplanation>;
+  ai_cache: Record<string, unknown>;
   updated_at: string;
 }
 
@@ -189,14 +197,20 @@ export async function signOutDe(): Promise<void> {
 }
 
 function rowToPayload(row: UserSyncRow): CloudSyncPayload {
+  const rawCache = { ...(row.ai_cache ?? {}) };
+  const embeddedPrefs = (rawCache[SYNC_PREFS_META_KEY] ?? {}) as EmbeddedSyncPrefs;
+  delete rawCache[SYNC_PREFS_META_KEY];
+
   return {
     selectedState: row.selected_state || 'bw',
     theme: row.theme === 'light' ? 'light' : 'dark',
     apiKey: row.api_key ?? '',
     aiModel: row.ai_model || 'gemini-2.5-flash',
+    translationLang: embeddedPrefs.translationLang ?? 'none',
+    alwaysShowTranslation: embeddedPrefs.alwaysShowTranslation ?? true,
     settingsUpdatedAt: Number(row.settings_updated_at ?? 0),
     progress: row.progress ?? {},
-    aiCache: row.ai_cache ?? {},
+    aiCache: rawCache as Record<string, CachedExplanation>,
     updatedAt: row.updated_at,
   };
 }
@@ -231,6 +245,14 @@ export async function pushCloudSyncData(
   const supabase = getSupabaseClient();
   if (!supabase) return;
 
+  const aiCacheWithPrefs: Record<string, unknown> = {
+    ...payload.aiCache,
+    [SYNC_PREFS_META_KEY]: {
+      translationLang: payload.translationLang,
+      alwaysShowTranslation: payload.alwaysShowTranslation,
+    } satisfies EmbeddedSyncPrefs,
+  };
+
   const { error } = await supabase.from('user_sync_data').upsert(
     {
       user_id: userId,
@@ -240,7 +262,7 @@ export async function pushCloudSyncData(
       ai_model: payload.aiModel,
       settings_updated_at: payload.settingsUpdatedAt,
       progress: payload.progress,
-      ai_cache: payload.aiCache,
+      ai_cache: aiCacheWithPrefs,
       updated_at: new Date().toISOString(),
     },
     { onConflict: 'user_id' }

@@ -11,11 +11,13 @@ import {
   Sun,
   Moon,
   MapPin,
+  Languages,
 } from 'lucide-react';
 import { BUNDESLAENDER } from '../data';
-import type { StateCode } from '../types/question';
+import type { StateCode, TranslationLang } from '../types/question';
 import { useAppStore } from '../store/useAppStore';
 import { AVAILABLE_AI_MODELS } from '../services/aiTutor';
+import { TRANSLATION_LANGUAGES } from '../services/translations';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -24,6 +26,8 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const selectedState = useAppStore((s) => s.selectedState);
+  const translationLang = useAppStore((s) => s.translationLang);
+  const alwaysShowTranslation = useAppStore((s) => s.alwaysShowTranslation);
   const apiKey = useAppStore((s) => s.apiKey);
   const aiModel = useAppStore((s) => s.aiModel);
   const theme = useAppStore((s) => s.theme);
@@ -32,6 +36,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
   const cacheCount = useAppStore((s) => Object.keys(s.aiCache).length);
 
   const setSelectedState = useAppStore((s) => s.setSelectedState);
+  const setTranslationLang = useAppStore((s) => s.setTranslationLang);
+  const setAlwaysShowTranslation = useAppStore((s) => s.setAlwaysShowTranslation);
   const setApiKey = useAppStore((s) => s.setApiKey);
   const setAiModel = useAppStore((s) => s.setAiModel);
   const setTheme = useAppStore((s) => s.setTheme);
@@ -114,8 +120,47 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </select>
         </div>
 
+        {/* Translation Helper Language */}
+        <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+          <label
+            htmlFor="settings-translation-select"
+            className="flex items-center gap-1.5 text-sm font-semibold text-slate-800 dark:text-slate-200"
+          >
+            <Languages className="w-4 h-4 text-indigo-500" />
+            <span>Übersetzungshilfe für Fragen & Antworten</span>
+          </label>
+          <select
+            id="settings-translation-select"
+            value={translationLang}
+            onChange={(e) => setTranslationLang(e.target.value as TranslationLang)}
+            className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-sm font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          >
+            {TRANSLATION_LANGUAGES.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+
+          {translationLang !== 'none' && (
+            <label className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 cursor-pointer select-none pt-1">
+              <input
+                type="checkbox"
+                checked={alwaysShowTranslation}
+                onChange={(e) => setAlwaysShowTranslation(e.target.checked)}
+                className="w-4 h-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500"
+              />
+              <span>Übersetzung im Lernmodus sofort unter jeder Frage anzeigen</span>
+            </label>
+          )}
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Hinweis: Während einer laufenden Prüfungssimulation bleibt der Test wie in der echten
+            BAMF-Prüfung rein auf Deutsch.
+          </p>
+        </div>
+
         {/* Theme Switch */}
-        <div className="space-y-2">
+        <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
           <span className="block text-sm font-semibold text-slate-800 dark:text-slate-200">
             Darstellung
           </span>

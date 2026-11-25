@@ -1,9 +1,11 @@
 # Dependencies
 node_modules/
 
-# Build outputs
+# Build outputs & temporary import data
 dist/
 dist-ssr/
+temp/
+*.tsbuildinfo
 
 # Environment variables & secrets (NEVER commit .env files!)
 .env

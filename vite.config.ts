@@ -3,6 +3,14 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  server: {
+    host: true,
+    port: 5173,
+  },
+  preview: {
+    host: true,
+    port: 4173,
+  },
   plugins: [
     react(),
     VitePWA({
@@ -13,11 +21,10 @@ export default defineConfig({
         'apple-touch-icon.png',
         'pwa-192x192.png',
         'pwa-512x512.png',
-        'images/*.svg',
-        'images/*.png',
       ],
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,jpg,webp,json}'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
@@ -26,7 +33,7 @@ export default defineConfig({
         name: 'Leben in Deutschland – Alle 16 Bundesländer',
         short_name: 'Einbürgerung DE',
         description:
-          'Vorbereitung auf den Test „Leben in Deutschland“ (Einbürgerungstest) für alle 16 Bundesländer mit Geräte-Sync und KI-Lernhilfe.',
+          'Vorbereitung auf den Test „Leben in Deutschland“ (Einbürgerungstest) mit allen 460 Fragen, Übersetzungen, Geräte-Sync und KI-Lernhilfe.',
         theme_color: '#0f172a',
         background_color: '#0f172a',
         display: 'standalone',
