@@ -1,0 +1,401 @@
+[
+  {
+    "id": "bw-01",
+    "category": "bw",
+    "topic": "Baden-Württemberg",
+    "question": "Welches ist ein Landkreis in Baden-Württemberg?",
+    "options": ["Mecklenburgische Seenplatte", "Neckar-Odenwald-Kreis", "Nordfriesland", "Altötting"],
+    "correctIndex": 1
+  },
+  {
+    "id": "bw-02",
+    "category": "bw",
+    "topic": "Baden-Württemberg",
+    "question": "Für wie viele Jahre wird der Landtag in Baden-Württemberg gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "bw-03",
+    "category": "bw",
+    "topic": "Baden-Württemberg",
+    "question": "Welche Farben hat die Landesflagge von Baden-Württemberg?",
+    "options": ["blau-weiß-rot", "schwarz-gold", "weiß-blau", "grün-weiß-rot"],
+    "correctIndex": 1
+  },
+  {
+    "id": "by-01",
+    "category": "by",
+    "topic": "Bayern",
+    "question": "Welches ist ein Landkreis in Bayern?",
+    "options": ["Prignitz", "Rhein-Sieg-Kreis", "Nordfriesland", "Altötting"],
+    "correctIndex": 3
+  },
+  {
+    "id": "by-02",
+    "category": "by",
+    "topic": "Bayern",
+    "question": "Welche Stadt ist die Landeshauptstadt von Bayern?",
+    "options": ["Ingolstadt", "Regensburg", "Nürnberg", "München"],
+    "correctIndex": 3
+  },
+  {
+    "id": "by-03",
+    "category": "by",
+    "topic": "Bayern",
+    "question": "Welche Farben hat die Landesflagge von Bayern?",
+    "options": ["blau-weiß-rot", "weiß-blau", "grün-weiß-rot", "schwarz-gelb"],
+    "correctIndex": 1
+  },
+  {
+    "id": "be-01",
+    "category": "be",
+    "topic": "Berlin",
+    "question": "Welches ist ein Bezirk von Berlin?",
+    "options": ["Altona", "Prignitz", "Pankow", "Mecklenburgische Seenplatte"],
+    "correctIndex": 2
+  },
+  {
+    "id": "be-02",
+    "category": "be",
+    "topic": "Berlin",
+    "question": "Für wie viele Jahre wird das Abgeordnetenhaus in Berlin gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "be-03",
+    "category": "be",
+    "topic": "Berlin",
+    "question": "Wie nennt man den Regierungschef / die Regierungschefin des Stadtstaates Berlin?",
+    "options": [
+      "Ministerpräsident / Ministerpräsidentin",
+      "Oberbürgermeister / Oberbürgermeisterin",
+      "Präsident / Präsidentin des Senats",
+      "Regierender Bürgermeister / Regierende Bürgermeisterin"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "bb-01",
+    "category": "bb",
+    "topic": "Brandenburg",
+    "question": "Welches ist ein Landkreis in Brandenburg?",
+    "options": ["Prignitz", "Rhein-Sieg-Kreis", "Vogtlandkreis", "Ammerland"],
+    "correctIndex": 0
+  },
+  {
+    "id": "bb-02",
+    "category": "bb",
+    "topic": "Brandenburg",
+    "question": "Welche Stadt ist die Landeshauptstadt von Brandenburg?",
+    "options": ["Cottbus", "Wittenberge", "Brandenburg an der Havel", "Potsdam"],
+    "correctIndex": 3
+  },
+  {
+    "id": "bb-03",
+    "category": "bb",
+    "topic": "Brandenburg",
+    "question": "Welche Farben hat die Landesflagge von Brandenburg?",
+    "options": ["blau-weiß-rot", "rot-weiß", "grün-weiß-rot", "schwarz-gelb"],
+    "correctIndex": 1
+  },
+  {
+    "id": "hb-01",
+    "category": "hb",
+    "topic": "Bremen",
+    "question": "Welches ist ein Bremer Stadtteil?",
+    "options": ["Altona", "Hemelingen", "Pankow", "Babelsberg"],
+    "correctIndex": 1
+  },
+  {
+    "id": "hb-02",
+    "category": "hb",
+    "topic": "Bremen",
+    "question": "Für wie viele Jahre wird die Bürgerschaft in Bremen gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 1
+  },
+  {
+    "id": "hb-03",
+    "category": "hb",
+    "topic": "Bremen",
+    "question": "Wie nennt man den Regierungschef / die Regierungschefin des Stadtstaates Bremen?",
+    "options": [
+      "Ministerpräsident / Ministerpräsidentin",
+      "Erster Bürgermeister / Erste Bürgermeisterin",
+      "Präsident / Präsidentin des Senats",
+      "Regierender Bürgermeister / Regierende Bürgermeisterin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "hh-01",
+    "category": "hh",
+    "topic": "Hamburg",
+    "question": "Welches ist ein Bezirk von Hamburg?",
+    "options": ["Altona", "Hemelingen", "Pankow", "Mecklenburgische Seenplatte"],
+    "correctIndex": 0
+  },
+  {
+    "id": "hh-02",
+    "category": "hh",
+    "topic": "Hamburg",
+    "question": "Für wie viele Jahre wird das Parlament (Bürgerschaft) in Hamburg gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "hh-03",
+    "category": "hh",
+    "topic": "Hamburg",
+    "question": "Wie nennt man den Regierungschef / die Regierungschefin des Stadtstaates Hamburg?",
+    "options": [
+      "Ministerpräsident / Ministerpräsidentin",
+      "Erster Bürgermeister / Erste Bürgermeisterin",
+      "Regierender Senator / Regierende Senatorin",
+      "Oberbürgermeister / Oberbürgermeisterin"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "he-01",
+    "category": "he",
+    "topic": "Hessen",
+    "question": "Welches ist ein Landkreis in Hessen?",
+    "options": ["Ammerland", "Altötting", "Prignitz", "Rheingau-Taunus-Kreis"],
+    "correctIndex": 3
+  },
+  {
+    "id": "he-02",
+    "category": "he",
+    "topic": "Hessen",
+    "question": "Welche Stadt ist die Landeshauptstadt von Hessen?",
+    "options": ["Kassel", "Darmstadt", "Frankfurt", "Wiesbaden"],
+    "correctIndex": 3
+  },
+  {
+    "id": "he-03",
+    "category": "he",
+    "topic": "Hessen",
+    "question": "Für wie viele Jahre wird der Landtag in Hessen gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "mv-01",
+    "category": "mv",
+    "topic": "Mecklenburg-Vorpommern",
+    "question": "Welches ist ein Landkreis in Mecklenburg-Vorpommern?",
+    "options": ["Prignitz", "Mecklenburgische Seenplatte", "Vogtlandkreis", "Rhein-Sieg-Kreis"],
+    "correctIndex": 1
+  },
+  {
+    "id": "mv-02",
+    "category": "mv",
+    "topic": "Mecklenburg-Vorpommern",
+    "question": "Welche Stadt ist die Landeshauptstadt von Mecklenburg-Vorpommern?",
+    "options": ["Greifswald", "Schwerin", "Rostock", "Wismar"],
+    "correctIndex": 1
+  },
+  {
+    "id": "mv-03",
+    "category": "mv",
+    "topic": "Mecklenburg-Vorpommern",
+    "question": "Für wie viele Jahre wird der Landtag in Mecklenburg-Vorpommern gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "ni-01",
+    "category": "ni",
+    "topic": "Niedersachsen",
+    "question": "Welches ist ein Landkreis in Niedersachsen?",
+    "options": ["Ammerland", "Rhein-Sieg-Kreis", "Nordfriesland", "Vogtlandkreis"],
+    "correctIndex": 0
+  },
+  {
+    "id": "ni-02",
+    "category": "ni",
+    "topic": "Niedersachsen",
+    "question": "Welche Stadt ist die Landeshauptstadt von Niedersachsen?",
+    "options": ["Hannover", "Braunschweig", "Osnabrück", "Wolfsburg"],
+    "correctIndex": 0
+  },
+  {
+    "id": "ni-03",
+    "category": "ni",
+    "topic": "Niedersachsen",
+    "question": "Für wie viele Jahre wird der Landtag in Niedersachsen gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "nw-01",
+    "category": "nw",
+    "topic": "Nordrhein-Westfalen",
+    "question": "Welches ist ein Landkreis in Nordrhein-Westfalen?",
+    "options": ["Ammerland", "Rhein-Sieg-Kreis", "Nordfriesland", "Vogtlandkreis"],
+    "correctIndex": 1
+  },
+  {
+    "id": "nw-02",
+    "category": "nw",
+    "topic": "Nordrhein-Westfalen",
+    "question": "Welche Stadt ist die Landeshauptstadt von Nordrhein-Westfalen?",
+    "options": ["Köln", "Bonn", "Düsseldorf", "Dortmund"],
+    "correctIndex": 2
+  },
+  {
+    "id": "nw-03",
+    "category": "nw",
+    "topic": "Nordrhein-Westfalen",
+    "question": "Für wie viele Jahre wird der Landtag in Nordrhein-Westfalen gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "rp-01",
+    "category": "rp",
+    "topic": "Rheinland-Pfalz",
+    "question": "Welches ist ein Landkreis in Rheinland-Pfalz?",
+    "options": ["Westerwaldkreis", "Altötting", "Emsland", "Prignitz"],
+    "correctIndex": 0
+  },
+  {
+    "id": "rp-02",
+    "category": "rp",
+    "topic": "Rheinland-Pfalz",
+    "question": "Welche Stadt ist die Landeshauptstadt von Rheinland-Pfalz?",
+    "options": ["Mainz", "Kaiserslautern", "Ludwigshafen", "Koblenz"],
+    "correctIndex": 0
+  },
+  {
+    "id": "rp-03",
+    "category": "rp",
+    "topic": "Rheinland-Pfalz",
+    "question": "Für wie viele Jahre wird der Landtag in Rheinland-Pfalz gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "sl-01",
+    "category": "sl",
+    "topic": "Saarland",
+    "question": "Welches ist ein Landkreis im Saarland?",
+    "options": ["Mecklenburgische Seenplatte", "Altötting", "Neunkirchen", "Rhein-Sieg-Kreis"],
+    "correctIndex": 2
+  },
+  {
+    "id": "sl-02",
+    "category": "sl",
+    "topic": "Saarland",
+    "question": "Welche Stadt ist die Landeshauptstadt des Saarlandes?",
+    "options": ["Neunkirchen", "Homburg", "Saarbrücken", "Völklingen"],
+    "correctIndex": 2
+  },
+  {
+    "id": "sl-03",
+    "category": "sl",
+    "topic": "Saarland",
+    "question": "Für wie viele Jahre wird der Landtag des Saarlandes gewählt?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2
+  },
+  {
+    "id": "sn-01",
+    "category": "sn",
+    "topic": "Sachsen",
+    "question": "Welches ist ein Landkreis in Sachsen?",
+    "options": ["Vogtlandkreis", "Altötting", "Uckermark", "Nordfriesland"],
+    "correctIndex": 0
+  },
+  {
+    "id": "sn-02",
+    "category": "sn",
+    "topic": "Sachsen",
+    "question": "Welche Stadt ist die Landeshauptstadt von Sachsen?",
+    "options": ["Leipzig", "Dresden", "Chemnitz", "Zwickau"],
+    "correctIndex": 1
+  },
+  {
+    "id": "sn-03",
+    "category": "sn",
+    "topic": "Sachsen",
+    "question": "Welche Farben hat die Landesflagge von Sachsen?",
+    "options": ["blau-weiß-rot", "weiß-grün", "grün-weiß-rot", "schwarz-gelb"],
+    "correctIndex": 1
+  },
+  {
+    "id": "st-01",
+    "category": "st",
+    "topic": "Sachsen-Anhalt",
+    "question": "Welches ist ein Landkreis in Sachsen-Anhalt?",
+    "options": ["Ammerland", "Altötting", "Uckermark", "Börde"],
+    "correctIndex": 3
+  },
+  {
+    "id": "st-02",
+    "category": "st",
+    "topic": "Sachsen-Anhalt",
+    "question": "Welche Stadt ist die Landeshauptstadt von Sachsen-Anhalt?",
+    "options": ["Halle", "Dessau", "Magdeburg", "Wittenberg"],
+    "correctIndex": 2
+  },
+  {
+    "id": "st-03",
+    "category": "st",
+    "topic": "Sachsen-Anhalt",
+    "question": "Welche Farben hat die Landesflagge von Sachsen-Anhalt?",
+    "options": ["blau-weiß-rot", "gelb-schwarz", "grün-weiß-rot", "weiß-blau"],
+    "correctIndex": 1
+  },
+  {
+    "id": "sh-01",
+    "category": "sh",
+    "topic": "Schleswig-Holstein",
+    "question": "Welches ist ein Landkreis in Schleswig-Holstein?",
+    "options": ["Ammerland", "Mecklenburgische Seenplatte", "Prignitz", "Nordfriesland"],
+    "correctIndex": 3
+  },
+  {
+    "id": "sh-02",
+    "category": "sh",
+    "topic": "Schleswig-Holstein",
+    "question": "Welche Stadt ist die Landeshauptstadt von Schleswig-Holstein?",
+    "options": ["Husum", "Flensburg", "Lübeck", "Kiel"],
+    "correctIndex": 3
+  },
+  {
+    "id": "sh-03",
+    "category": "sh",
+    "topic": "Schleswig-Holstein",
+    "question": "Welche Farben hat die Landesflagge von Schleswig-Holstein?",
+    "options": ["weiß-blau", "blau-weiß-rot", "weiß-rot", "grün-weiß-rot"],
+    "correctIndex": 1
+  },
+  {
+    "id": "th-01",
+    "category": "th",
+    "topic": "Thüringen",
+    "question": "Welches ist ein Landkreis in Thüringen?",
+    "options": ["Ammerland", "Altötting", "Nordfriesland", "Wartburgkreis"],
+    "correctIndex": 3
+  },
+  {
+    "id": "th-02",
+    "category": "th",
+    "topic": "Thüringen",
+    "question": "Welche Stadt ist die Landeshauptstadt von Thüringen?",
+    "options": ["Eisenach", "Weimar", "Gera", "Erfurt"],
+    "correctIndex": 3
+  },
+  {
+    "id": "th-03",
+    "category": "th",
+    "topic": "Thüringen",
+    "question": "Welche Farben hat die Landesflagge von Thüringen?",
+    "options": ["blau-weiß-rot", "weiß-rot", "grün-weiß-rot", "schwarz-gelb"],
+    "correctIndex": 1
+  }
+]

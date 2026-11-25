@@ -1,0 +1,159 @@
+[
+  {
+    "id": "001",
+    "category": "general",
+    "topic": "Politik in der Demokratie",
+    "question": "In Deutschland dürfen Menschen offen etwas gegen die Regierung sagen, weil …",
+    "options": [
+      "hier Religionsfreiheit gilt.",
+      "die Menschen Steuern zahlen.",
+      "die Menschen das Wahlrecht haben.",
+      "hier Meinungsfreiheit gilt."
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "003",
+    "category": "general",
+    "topic": "Politik in der Demokratie",
+    "question": "Deutschland ist ein Rechtsstaat. Was ist damit gemeint?",
+    "options": [
+      "Alle Einwohner / Einwohnerinnen und der Staat müssen sich an die Gesetze halten.",
+      "Der Staat muss sich nicht an die Gesetze halten.",
+      "Nur Deutsche müssen die Gesetze befolgen.",
+      "Die Gerichte machen die Gesetze."
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "006",
+    "category": "general",
+    "topic": "Politik in der Demokratie",
+    "question": "Wie heißt die deutsche Verfassung?",
+    "options": [
+      "Volksgesetz",
+      "Bundesgesetz",
+      "Deutsches Gesetz",
+      "Grundgesetz"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "021",
+    "category": "general",
+    "topic": "Politik in der Demokratie",
+    "question": "Welches Wappen gehört zur Bundesrepublik Deutschland?",
+    "options": [
+      "Bild 1",
+      "Bild 2",
+      "Bild 3",
+      "Bild 4"
+    ],
+    "correctIndex": 0,
+    "image": "/images/q-021.png"
+  },
+  {
+    "id": "042",
+    "category": "general",
+    "topic": "Politik in der Demokratie",
+    "question": "Wer wählt in Deutschland den Bundeskanzler / die Bundeskanzlerin?",
+    "options": [
+      "der Bundesrat",
+      "die Bundesversammlung",
+      "das Volk",
+      "der Bundestag"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "153",
+    "category": "general",
+    "topic": "Geschichte und Verantwortung",
+    "question": "Wann war der Zweite Weltkrieg zu Ende?",
+    "options": [
+      "1933",
+      "1945",
+      "1949",
+      "1961"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "175",
+    "category": "general",
+    "topic": "Geschichte und Verantwortung",
+    "question": "Wann wurde die Bundesrepublik Deutschland gegründet?",
+    "options": [
+      "1939",
+      "1945",
+      "1949",
+      "1951"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "199",
+    "category": "general",
+    "topic": "Geschichte und Verantwortung",
+    "question": "In welchem Jahr wurde die Mauer in Berlin gebaut?",
+    "options": [
+      "1953",
+      "1956",
+      "1959",
+      "1961"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "217",
+    "category": "general",
+    "topic": "Geschichte und Verantwortung",
+    "question": "Seit wann bezahlt man in Deutschland mit dem Euro in bar?",
+    "options": [
+      "1995",
+      "1998",
+      "2002",
+      "2005"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "244",
+    "category": "general",
+    "topic": "Mensch und Gesellschaft",
+    "question": "Was muss jeder deutsche Staatsbürger / jede deutsche Staatsbürgerin ab dem 16. Lebensjahr besitzen?",
+    "options": [
+      "einen Reisepass",
+      "einen Personalausweis",
+      "einen Sozialversicherungsausweis",
+      "einen Führerschein"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "251",
+    "category": "general",
+    "topic": "Mensch und Gesellschaft",
+    "question": "Ab welchem Alter ist man in Deutschland volljährig?",
+    "options": [
+      "16",
+      "18",
+      "19",
+      "21"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "291",
+    "category": "general",
+    "topic": "Mensch und Gesellschaft",
+    "question": "Zu welchem Fest tragen Menschen in Deutschland bunte Kostüme und Masken?",
+    "options": [
+      "am Rosenmontag",
+      "am Maifeiertag",
+      "beim Oktoberfest",
+      "an Pfingsten"
+    ],
+    "correctIndex": 0
+  }
+]
