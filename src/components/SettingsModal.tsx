@@ -73,12 +73,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-950/70 backdrop-blur-sm p-0 sm:p-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-950/70 backdrop-blur-sm pt-safe p-0 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="settings-modal-title"
     >
-      <div className="w-full sm:max-w-lg max-h-[92dvh] overflow-y-auto rounded-t-3xl sm:rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-5 sm:p-6 space-y-6">
+      <div className="w-full sm:max-w-lg max-h-[85dvh] sm:max-h-[90dvh] overflow-y-auto rounded-t-3xl sm:rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-5 sm:p-6 pb-safe-modal space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
           <h2

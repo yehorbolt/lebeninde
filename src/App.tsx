@@ -89,9 +89,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-dvh flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors">
-      {/* Top App Bar */}
-      <header className="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 min-h-[60px] py-2 flex items-center justify-between gap-2">
+      {/* Top App Bar (pt-safe clears iOS Dynamic Island / status bar in standalone PWA mode) */}
+      <header className="sticky top-0 z-30 pt-safe bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 min-h-[56px] py-2 flex items-center justify-between gap-2">
           {/* App Brand & Title */}
           <button
             type="button"
@@ -295,7 +295,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-5 pb-24 md:pb-10">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-5 pb-28 md:pb-10">
         {activeView === 'dashboard' && (
           <Dashboard
             onStartExam={handleQuickStartExam}

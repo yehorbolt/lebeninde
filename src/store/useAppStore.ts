@@ -92,6 +92,10 @@ export const applyThemeToDocument = (theme: ThemeMode) => {
   } else {
     root.classList.remove('dark');
   }
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) {
+    metaTheme.setAttribute('content', theme === 'dark' ? '#0f172a' : '#ffffff');
+  }
 };
 
 export const useAppStore = create<AppState>()(
