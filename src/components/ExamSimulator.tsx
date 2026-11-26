@@ -187,7 +187,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
               aria-label="Bundesland für die Prüfung wählen"
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value as StateCode)}
-              className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 pl-9 pr-3 py-2 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full rounded-xl glass-inset pl-9 pr-3 py-2 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               {BUNDESLAENDER.map((bl) => (
                 <option key={bl.code} value={bl.code}>
@@ -199,7 +199,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 p-4">
+          <div className="rounded-xl glass-inset p-4">
             <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
               Umfang
             </div>
@@ -211,7 +211,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
             </p>
           </div>
 
-          <div className="rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 p-4">
+          <div className="rounded-xl glass-inset p-4">
             <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
               Bearbeitungszeit
             </div>
@@ -223,7 +223,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
             </p>
           </div>
 
-          <div className="rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 p-4">
+          <div className="rounded-xl glass-inset p-4">
             <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
               Bestehensgrenze
             </div>

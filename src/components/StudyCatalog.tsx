@@ -237,7 +237,7 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
                 aria-label="Kursbuch-Kapitel auswählen"
                 value={selectedChapterId}
                 onChange={(e) => setSelectedChapterId(e.target.value)}
-                className="w-full rounded-xl bg-[#FAF9F6] dark:bg-[#1B1F27] border hairline-divider pl-9 pr-3 py-2 text-xs sm:text-sm font-semibold text-[#141413] dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full rounded-xl glass-inset pl-9 pr-3 py-2 text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {KURSBUCH_CHAPTERS.map((ch) => (
                   <option key={ch.chapterId} value={ch.chapterId}>
@@ -259,7 +259,7 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
               id="topic-select"
               value={selectedTopic}
               onChange={(e) => setSelectedTopic(e.target.value)}
-              className="w-full rounded-xl bg-[#FAF9F6] dark:bg-[#1B1F27] border hairline-divider px-3.5 py-2 text-sm font-medium text-[#141413] dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full rounded-xl glass-inset px-3.5 py-2 text-sm font-medium text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               {activeTopics.map((topic) => (
                 <option key={topic} value={topic}>
@@ -273,14 +273,14 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
         {/* iOS Segmented Sort Switch (Smart Spaced-Repetition vs Numeric) + Refresh */}
         {filteredQuestions.length > 1 && (
           <div className="pt-2 border-t hairline-divider flex flex-wrap items-center justify-between gap-2 text-xs">
-            <div className="inline-flex items-center p-0.5 rounded-xl bg-[#F3F1EC] dark:bg-white/[0.05]">
+            <div className="inline-flex items-center p-0.5 rounded-xl bg-black/[0.05] dark:bg-white/[0.06] border border-white/40 dark:border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setSortOrder('smart')}
                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-semibold transition ${
                   sortOrder === 'smart'
-                    ? 'bg-white dark:bg-[#14171D] text-[#141413] dark:text-white shadow-sm'
-                    : 'text-stone-500 dark:text-slate-400'
+                    ? 'bg-white/90 dark:bg-white/[0.15] text-slate-900 dark:text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
                 <Sparkles className="w-3 h-3 text-amber-500" />
@@ -291,8 +291,8 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
                 onClick={() => setSortOrder('numeric')}
                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-semibold transition ${
                   sortOrder === 'numeric'
-                    ? 'bg-white dark:bg-[#14171D] text-[#141413] dark:text-white shadow-sm'
-                    : 'text-stone-500 dark:text-slate-400'
+                    ? 'bg-white/90 dark:bg-white/[0.15] text-slate-900 dark:text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
                 <ListOrdered className="w-3 h-3" />
@@ -377,7 +377,7 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
                 type="button"
                 disabled={safeIndex === 0}
                 onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold border hairline-divider bg-[#FAF9F6] dark:bg-[#1B1F27] text-[#141413] dark:text-slate-100 disabled:opacity-40 hover:opacity-85 transition"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold glass-inset text-slate-900 dark:text-slate-100 disabled:opacity-40 hover:bg-white/60 dark:hover:bg-white/[0.12] transition"
               >
                 <ChevronLeft className="w-4 h-4" />
                 <span>Zurück</span>
@@ -386,7 +386,7 @@ export const StudyCatalog: React.FC<StudyCatalogProps> = ({ onOpenSettings }) =>
               <button
                 type="button"
                 onClick={() => setShowJumpGrid((v) => !v)}
-                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border hairline-divider bg-white dark:bg-[#0B0D10] text-stone-700 dark:text-slate-300 hover:border-amber-500/50 transition tabular-nums"
+                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold glass-inset text-slate-800 dark:text-slate-200 hover:border-amber-500/50 transition tabular-nums"
                 aria-expanded={showJumpGrid}
               >
                 <Grid className="w-4 h-4 text-amber-500" />

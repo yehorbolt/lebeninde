@@ -236,27 +236,27 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           const translatedOpt = showTranslatedText ? translation?.opts?.[idx] : undefined;
 
           let containerClasses =
-            'border-stone-200/90 dark:border-white/[0.08] bg-[#FAF9F6] dark:bg-[#1B1F27]/70 hover:border-stone-300 dark:hover:border-white/[0.16] text-[#141413] dark:text-[#F3F4F6]';
+            'glass-inset hover:bg-white/60 dark:hover:bg-white/[0.11] text-slate-900 dark:text-slate-50';
           let badgeClasses =
-            'bg-white dark:bg-[#14171D] text-stone-600 dark:text-slate-300 border border-stone-200/90 dark:border-white/[0.09]';
+            'bg-white/75 dark:bg-white/[0.1] text-slate-700 dark:text-slate-200 border border-white/80 dark:border-white/[0.16]';
 
           if (revealSolution) {
             if (isCorrectOption) {
               containerClasses =
-                'border-emerald-500/70 bg-emerald-500/[0.09] dark:bg-emerald-500/[0.14] text-emerald-950 dark:text-emerald-100';
-              badgeClasses = 'bg-emerald-600 text-white border-emerald-600';
+                'border-emerald-500/75 bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-950 dark:text-emerald-50';
+              badgeClasses = 'bg-emerald-600 text-white border-emerald-500';
             } else if (isSelected && !isCorrectOption) {
               containerClasses =
-                'border-rose-500/70 bg-rose-500/[0.09] dark:bg-rose-500/[0.14] text-rose-950 dark:text-rose-100';
-              badgeClasses = 'bg-rose-600 text-white border-rose-600';
+                'border-rose-500/75 bg-rose-500/15 dark:bg-rose-500/20 text-rose-950 dark:text-rose-50';
+              badgeClasses = 'bg-rose-600 text-white border-rose-500';
             } else {
               containerClasses =
-                'border-stone-200/50 dark:border-white/[0.04] bg-[#FAF9F6]/50 dark:bg-[#14171D]/40 text-stone-400 dark:text-slate-500';
+                'border-white/35 dark:border-white/[0.06] bg-white/25 dark:bg-white/[0.025] text-slate-500 dark:text-slate-400';
             }
           } else if (mode === 'exam' && isSelected) {
             containerClasses =
-              'border-amber-500 bg-amber-500/10 dark:bg-amber-500/15 text-[#141413] dark:text-white ring-1 ring-amber-500/35';
-            badgeClasses = 'bg-amber-500 text-slate-950 border-amber-500 font-bold';
+              'border-amber-500/80 bg-amber-500/15 dark:bg-amber-500/20 text-slate-950 dark:text-white ring-1 ring-amber-500/40';
+            badgeClasses = 'bg-amber-500 text-slate-950 border-amber-400 font-bold';
           }
 
           const isInteractive =
@@ -335,7 +335,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
       {/* Built-in Offline Explanation */}
       {revealSolution && (question.explanation || (showTranslatedText && translation?.exp)) && (
-        <div className="mt-4 rounded-xl bg-[#F3F1EC]/80 dark:bg-[#1B1F27] border hairline-divider p-3.5 sm:p-4 space-y-2 text-xs sm:text-sm leading-relaxed">
+        <div className="mt-4 rounded-xl glass-inset p-3.5 sm:p-4 space-y-2 text-xs sm:text-sm leading-relaxed">
           {question.explanation && (
             <div className="flex items-start gap-2.5 text-stone-700 dark:text-slate-300">
               <Info className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />

@@ -174,11 +174,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
             </div>
 
-            <div className="rounded-xl bg-[#F3F1EC] dark:bg-white/[0.04] border hairline-divider px-2.5 py-2 text-center">
-              <div className="text-[11px] font-semibold text-stone-500 dark:text-slate-400 truncate">
+            <div className="rounded-xl glass-inset px-2.5 py-2 text-center">
+              <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 truncate">
                 Neu
               </div>
-              <div className="text-base sm:text-lg font-bold text-[#141413] dark:text-slate-200 tabular-nums">
+              <div className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tabular-nums">
                 {newCount}
               </div>
             </div>
@@ -192,7 +192,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <div
-                  className="w-6 h-6 rounded-lg border border-stone-300 dark:border-white/15 overflow-hidden flex flex-col shrink-0"
+                  className="w-6 h-6 rounded-lg border border-white/60 dark:border-white/20 overflow-hidden flex flex-col shrink-0"
                   aria-hidden="true"
                 >
                   <div className="h-1/2" style={{ backgroundColor: stateInfo.flagColors[0] }} />
@@ -200,12 +200,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 </div>
                 <label
                   htmlFor="dashboard-state-select"
-                  className="text-xs font-bold uppercase tracking-wider text-stone-400 dark:text-slate-500"
+                  className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
                 >
                   Bundesland
                 </label>
               </div>
-              <span className="text-[11px] text-stone-400 dark:text-slate-500">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
                 Hauptstadt: {stateInfo.capital}
               </span>
             </div>
@@ -216,7 +216,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 id="dashboard-state-select"
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value as StateCode)}
-                className="w-full rounded-xl bg-[#FAF9F6] dark:bg-[#1B1F27] border hairline-divider pl-9 pr-3 py-2.5 text-sm font-bold text-[#141413] dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full rounded-xl glass-inset pl-9 pr-3 py-2.5 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {BUNDESLAENDER.map((bl) => (
                   <option key={bl.code} value={bl.code}>

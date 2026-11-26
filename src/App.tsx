@@ -112,15 +112,16 @@ export const App: React.FC = () => {
     ];
 
   return (
-    <div className="relative min-h-dvh flex flex-col bg-[#FAF9F6] text-[#141413] dark:bg-[#0B0D10] dark:text-[#F3F4F6] transition-colors overflow-x-clip">
-      {/* Ambient Aurora Mesh Background (makes frosted glass Bento & Dock refraction visibly shine) */}
+    <div className="relative min-h-dvh flex flex-col text-slate-900 dark:text-slate-50 transition-colors overflow-x-clip">
+      {/* Fixed 1:1 iOS Mesh Wallpaper + Vibrant Ambient Orbs Behind All Glass Layers */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        className="pointer-events-none fixed inset-0 z-0 ios-wallpaper overflow-hidden"
       >
-        <div className="absolute -top-28 -left-20 w-[26rem] h-[26rem] rounded-full bg-amber-400/25 dark:bg-amber-500/[0.14] blur-[95px]" />
-        <div className="absolute top-1/4 -right-24 w-[24rem] h-[24rem] rounded-full bg-emerald-400/20 dark:bg-emerald-500/[0.11] blur-[100px]" />
-        <div className="absolute -bottom-24 left-1/4 w-[28rem] h-[28rem] rounded-full bg-sky-400/20 dark:bg-indigo-500/[0.12] blur-[105px]" />
+        <div className="absolute -top-20 -left-16 w-[28rem] h-[28rem] rounded-full bg-amber-400/45 dark:bg-amber-500/30 blur-[90px]" />
+        <div className="absolute top-[22%] -right-20 w-[26rem] h-[26rem] rounded-full bg-sky-400/45 dark:bg-cyan-500/28 blur-[95px]" />
+        <div className="absolute top-[58%] left-[-10%] w-[25rem] h-[25rem] rounded-full bg-violet-400/35 dark:bg-indigo-500/28 blur-[100px]" />
+        <div className="absolute -bottom-24 right-[8%] w-[26rem] h-[26rem] rounded-full bg-emerald-400/35 dark:bg-emerald-500/24 blur-[95px]" />
       </div>
 
       {/* iOS 18 Translucent Glass Top Bar */}

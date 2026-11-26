@@ -231,7 +231,7 @@ export const KursbuchView: React.FC = () => {
               aria-label="Bundesland wählen"
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value as StateCode)}
-              className="rounded-lg bg-white dark:bg-[#14171D] border border-stone-200/90 dark:border-white/[0.08] pl-7 pr-3 py-1 text-xs font-semibold text-[#141413] dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="rounded-lg glass-inset pl-7 pr-3 py-1 text-xs font-semibold text-slate-900 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               {BUNDESLAENDER.map((bl) => (
                 <option key={bl.code} value={bl.code}>

@@ -10,13 +10,24 @@
 
   body {
     min-height: 100dvh;
-    background-color: #FAF9F6;
-    color: #141413;
+    background-color: #eef2f9;
+    color: #0f172a;
   }
 
   html.dark body {
-    background-color: #0B0D10;
-    color: #F3F4F6;
+    background-color: #060913;
+    color: #f8fafc;
+  }
+
+  /* Native dropdown options need readable solid fallback in OS menus */
+  select option {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
+
+  html.dark select option {
+    background-color: #111827;
+    color: #f8fafc;
   }
 
   /* Prevent iOS Safari / PWA auto-zoom when focusing inputs or selects (< 16px triggers zoom on iOS) */
@@ -55,96 +66,197 @@
   scrollbar-width: none;
 }
 
-/* True iOS 18 Translucent Glass Bento & Editorial Surfaces */
+/* ============================================================================
+   1:1 Apple iOS / Liquid Glass (UIVisualEffectView UltraThinMaterial) System
+   ============================================================================ */
 @layer components {
+  /* Rich iOS-style multi-layered mesh wallpaper so glass has real color & light to refract */
+  .ios-wallpaper {
+    background-color: #e8eef7;
+    background-image:
+      radial-gradient(at 12% 8%, rgba(251, 191, 36, 0.36) 0px, transparent 52%),
+      radial-gradient(at 88% 16%, rgba(56, 189, 248, 0.38) 0px, transparent 54%),
+      radial-gradient(at 82% 82%, rgba(52, 211, 153, 0.3) 0px, transparent 55%),
+      radial-gradient(at 16% 85%, rgba(167, 139, 250, 0.32) 0px, transparent 52%),
+      linear-gradient(160deg, #f5f7fb 0%, #e4ebf5 50%, #eef2f9 100%);
+  }
+
+  html.dark .ios-wallpaper {
+    background-color: #060913;
+    background-image:
+      radial-gradient(at 10% 6%, rgba(245, 158, 11, 0.28) 0px, transparent 50%),
+      radial-gradient(at 90% 14%, rgba(14, 165, 233, 0.26) 0px, transparent 52%),
+      radial-gradient(at 80% 86%, rgba(16, 185, 129, 0.22) 0px, transparent 54%),
+      radial-gradient(at 15% 82%, rgba(99, 102, 241, 0.26) 0px, transparent 52%),
+      linear-gradient(165deg, #090d1c 0%, #050811 52%, #0a1020 100%);
+  }
+
+  /* Top translucent iOS navigation bar */
   .glass-header {
-    background: rgba(250, 249, 246, 0.58);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
-    border-bottom: 1px solid rgba(20, 20, 19, 0.08);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.24) 100%
+    );
+    -webkit-backdrop-filter: blur(36px) saturate(210%);
+    backdrop-filter: blur(36px) saturate(210%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 4px 24px -4px rgba(15, 23, 42, 0.06);
   }
 
   html.dark .glass-header {
-    background: rgba(11, 13, 16, 0.52);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.09) 0%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 4px 28px -4px rgba(0, 0, 0, 0.45);
   }
 
+  /* Floating iOS Control-Center / Tab-Bar Glass Capsule */
   .glass-dock {
-    background: rgba(255, 255, 255, 0.68);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
-    backdrop-filter: blur(28px) saturate(190%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.56) 0%,
+      rgba(255, 255, 255, 0.32) 100%
+    );
+    -webkit-backdrop-filter: blur(40px) saturate(220%);
+    backdrop-filter: blur(40px) saturate(220%);
     border: 1px solid rgba(255, 255, 255, 0.85);
     box-shadow:
-      0 10px 30px -6px rgba(20, 20, 19, 0.12),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      0 14px 36px -6px rgba(15, 23, 42, 0.16),
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.4);
   }
 
   html.dark .glass-dock {
-    background: rgba(24, 29, 40, 0.58);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 55%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow:
-      0 14px 36px -6px rgba(0, 0, 0, 0.65),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+      0 18px 42px -6px rgba(0, 0, 0, 0.68),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.38),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.14),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.08);
   }
 
+  /* 1:1 iOS Control Center / Widget Ultra-Thin Glass Tile */
   .bento-card {
-    border-radius: 1.25rem;
-    background: rgba(255, 255, 255, 0.62);
-    -webkit-backdrop-filter: blur(24px) saturate(170%);
-    backdrop-filter: blur(24px) saturate(170%);
-    border: 1px solid rgba(20, 20, 19, 0.08);
+    border-radius: 1.5rem;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.52) 0%,
+      rgba(255, 255, 255, 0.28) 55%,
+      rgba(255, 255, 255, 0.38) 100%
+    );
+    -webkit-backdrop-filter: blur(36px) saturate(200%);
+    backdrop-filter: blur(36px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.78);
     box-shadow:
-      0 4px 20px -4px rgba(20, 20, 19, 0.05),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+      0 10px 32px -8px rgba(15, 23, 42, 0.1),
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.92),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
   }
 
   html.dark .bento-card {
-    background: rgba(24, 28, 38, 0.52);
-    border: 1px solid rgba(255, 255, 255, 0.11);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(255, 255, 255, 0.05) 55%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow:
-      0 8px 28px -6px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+      0 14px 36px -8px rgba(0, 0, 0, 0.52),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.06),
+      inset 0 0 24px 0 rgba(255, 255, 255, 0.02);
   }
 
-  /* Editorial Paper & Ink card: crisp readability with subtle glass rim */
+  /* Question Card: Translucent iOS Glass with effortless reading clarity */
   .editorial-card {
-    border-radius: 1.25rem;
-    background: rgba(255, 255, 255, 0.84);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(20, 20, 19, 0.09);
+    border-radius: 1.5rem;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.38) 100%
+    );
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.82);
     box-shadow:
-      0 4px 22px -4px rgba(20, 20, 19, 0.05),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      0 12px 34px -8px rgba(15, 23, 42, 0.1),
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.35);
   }
 
   html.dark .editorial-card {
-    background: rgba(20, 23, 30, 0.76);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.06) 60%,
+      rgba(255, 255, 255, 0.09) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow:
-      0 10px 30px -8px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      0 16px 40px -8px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.34),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.07);
   }
 
+  /* Inner interactive glass elements (inputs, selects, answer buttons, pills) */
+  .glass-inset {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.75);
+  }
+
+  html.dark .glass-inset {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* iOS Sheet / Popover Glass */
   .glass-modal {
-    background: rgba(252, 251, 248, 0.84);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid rgba(20, 20, 19, 0.1);
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.74) 0%,
+      rgba(245, 248, 255, 0.56) 100%
+    );
+    -webkit-backdrop-filter: blur(44px) saturate(210%);
+    backdrop-filter: blur(44px) saturate(210%);
+    border: 1px solid rgba(255, 255, 255, 0.88);
     box-shadow:
-      0 24px 48px -12px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      0 24px 54px -12px rgba(15, 23, 42, 0.25),
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95);
   }
 
   html.dark .glass-modal {
-    background: rgba(20, 24, 33, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      145deg,
+      rgba(30, 38, 56, 0.62) 0%,
+      rgba(15, 20, 32, 0.52) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow:
-      0 24px 56px -12px rgba(0, 0, 0, 0.75),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+      0 28px 60px -12px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
   }
 
   .hairline-divider {
-    @apply border-stone-300/60 dark:border-white/[0.09];
+    border-color: rgba(15, 23, 42, 0.09);
+  }
+
+  html.dark .hairline-divider {
+    border-color: rgba(255, 255, 255, 0.13);
   }
 }

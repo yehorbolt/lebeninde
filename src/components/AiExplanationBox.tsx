@@ -81,7 +81,7 @@ export const AiExplanationBox: React.FC<AiExplanationBoxProps> = ({
           )}
         </button>
       ) : (
-        <div className="rounded-2xl bg-[#F3F1EC]/75 dark:bg-[#1B1F27] border hairline-divider p-4 sm:p-5 space-y-4">
+        <div className="rounded-2xl glass-inset p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-semibold text-sm">
               <Sparkles className="w-4 h-4 shrink-0" />
@@ -91,7 +91,7 @@ export const AiExplanationBox: React.FC<AiExplanationBoxProps> = ({
               <button
                 type="button"
                 onClick={() => void fetchExplanation(true)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-amber-500/50 transition"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 glass-inset hover:border-amber-500/50 transition"
                 title="Erklärung neu mit Gemini erstellen"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
@@ -143,7 +143,7 @@ export const AiExplanationBox: React.FC<AiExplanationBoxProps> = ({
               {cached.kurzErklaert || cached.wichtigeWoerter.length > 0 || cached.eselsbruecke ? (
                 <>
                   {cached.kurzErklaert && (
-                    <div className="rounded-xl bg-white dark:bg-slate-950/70 p-3.5 border border-slate-200/80 dark:border-slate-800/80">
+                    <div className="rounded-xl glass-inset p-3.5">
                       <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                         <BookOpenCheck className="w-4 h-4 text-emerald-500 shrink-0" />
                         <span>1. Kurz erklärt:</span>
@@ -153,7 +153,7 @@ export const AiExplanationBox: React.FC<AiExplanationBoxProps> = ({
                   )}
 
                   {cached.wichtigeWoerter.length > 0 && (
-                    <div className="rounded-xl bg-white dark:bg-slate-950/70 p-3.5 border border-slate-200/80 dark:border-slate-800/80">
+                    <div className="rounded-xl glass-inset p-3.5">
                       <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                         <Languages className="w-4 h-4 text-sky-500 shrink-0" />
                         <span>2. Wichtige Wörter:</span>
@@ -182,7 +182,7 @@ export const AiExplanationBox: React.FC<AiExplanationBoxProps> = ({
                   )}
                 </>
               ) : (
-                <div className="rounded-xl bg-white dark:bg-slate-950/70 p-3.5 border border-slate-200/80 dark:border-slate-800/80 whitespace-pre-line text-slate-700 dark:text-slate-300">
+                <div className="rounded-xl glass-inset p-3.5 whitespace-pre-line text-slate-700 dark:text-slate-300">
                   {cached.rawText}
                 </div>
               )}
