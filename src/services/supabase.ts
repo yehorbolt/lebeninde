@@ -205,7 +205,7 @@ function rowToPayload(row: UserSyncRow): CloudSyncPayload {
     selectedState: row.selected_state || 'bw',
     theme: row.theme === 'light' ? 'light' : 'dark',
     apiKey: row.api_key ?? '',
-    aiModel: row.ai_model || 'gemini-2.5-flash',
+    aiModel: row.ai_model || 'auto',
     translationLang: embeddedPrefs.translationLang ?? 'none',
     alwaysShowTranslation: embeddedPrefs.alwaysShowTranslation ?? true,
     settingsUpdatedAt: Number(row.settings_updated_at ?? 0),

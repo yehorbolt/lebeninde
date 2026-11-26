@@ -164,7 +164,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
 
   if (phase === 'intro') {
     return (
-      <section className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+      <section className="bento-card p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
@@ -268,7 +268,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
     return (
       <div className="space-y-4">
         {/* Sticky Exam Top Status Bar */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5 sm:p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div className="bento-card p-3.5 sm:p-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-bold font-mono ${
@@ -352,7 +352,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
         )}
 
         {/* Prev / Next + Compact Question Navigator Grid */}
-        <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 shadow-sm space-y-4">
+        <div className="bento-card p-4 space-y-4">
           <div className="flex items-center justify-between gap-2">
             <button
               type="button"
@@ -437,7 +437,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
   return (
     <div className="space-y-6">
       {/* Results Summary Card */}
-      <section className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm space-y-5">
+      <section className="bento-card p-6 sm:p-7 space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div

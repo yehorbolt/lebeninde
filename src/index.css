@@ -5,10 +5,27 @@
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   body {
     min-height: 100dvh;
+    background-color: #FAF9F6;
+    color: #141413;
+  }
+
+  html.dark body {
+    background-color: #0B0D10;
+    color: #F3F4F6;
+  }
+
+  /* Prevent iOS Safari / PWA auto-zoom when focusing inputs or selects (< 16px triggers zoom on iOS) */
+  @media screen and (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
@@ -18,7 +35,11 @@
 }
 
 .pb-safe {
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  padding-bottom: max(0.65rem, env(safe-area-inset-bottom, 0px));
+}
+
+.bottom-dock-safe {
+  bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
 }
 
 .pb-safe-modal {
@@ -34,3 +55,96 @@
   scrollbar-width: none;
 }
 
+/* True iOS 18 Translucent Glass Bento & Editorial Surfaces */
+@layer components {
+  .glass-header {
+    background: rgba(250, 249, 246, 0.58);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(20, 20, 19, 0.08);
+  }
+
+  html.dark .glass-header {
+    background: rgba(11, 13, 16, 0.52);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dock {
+    background: rgba(255, 255, 255, 0.68);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 10px 30px -6px rgba(20, 20, 19, 0.12),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  }
+
+  html.dark .glass-dock {
+    background: rgba(24, 29, 40, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 14px 36px -6px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+  }
+
+  .bento-card {
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.62);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    backdrop-filter: blur(24px) saturate(170%);
+    border: 1px solid rgba(20, 20, 19, 0.08);
+    box-shadow:
+      0 4px 20px -4px rgba(20, 20, 19, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+  }
+
+  html.dark .bento-card {
+    background: rgba(24, 28, 38, 0.52);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    box-shadow:
+      0 8px 28px -6px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* Editorial Paper & Ink card: crisp readability with subtle glass rim */
+  .editorial-card {
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.84);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(20, 20, 19, 0.09);
+    box-shadow:
+      0 4px 22px -4px rgba(20, 20, 19, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  }
+
+  html.dark .editorial-card {
+    background: rgba(20, 23, 30, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 10px 30px -8px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-modal {
+    background: rgba(252, 251, 248, 0.84);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(20, 20, 19, 0.1);
+    box-shadow:
+      0 24px 48px -12px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  }
+
+  html.dark .glass-modal {
+    background: rgba(20, 24, 33, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 24px 56px -12px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+  }
+
+  .hairline-divider {
+    @apply border-stone-300/60 dark:border-white/[0.09];
+  }
+}

@@ -33,9 +33,9 @@ export default defineConfig({
         name: 'Leben in Deutschland – Alle 16 Bundesländer',
         short_name: 'Einbürgerung DE',
         description:
-          'Vorbereitung auf den Test „Leben in Deutschland“ (Einbürgerungstest) mit allen 460 Fragen, Übersetzungen, Geräte-Sync und KI-Lernhilfe.',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
+          'Vorbereitung auf den Test „Leben in Deutschland“ nach Kursbuch mit allen 460 Fragen, Spaced-Repetition und KI-Lernhilfe.',
+        theme_color: '#0B0D10',
+        background_color: '#0B0D10',
         display: 'standalone',
         orientation: 'portrait',
         lang: 'de',

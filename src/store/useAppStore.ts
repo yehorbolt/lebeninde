@@ -4,13 +4,22 @@ import type { StateCode, TranslationLang } from '../types/question';
 import type { CloudSyncPayload } from '../services/supabase';
 
 export type ThemeMode = 'dark' | 'light';
-export type AppView = 'dashboard' | 'catalog' | 'exam';
-export type CatalogFilter = 'all' | 'general' | 'state' | 'unanswered' | 'mistakes' | 'topic';
+export type AppView = 'dashboard' | 'kursbuch' | 'catalog' | 'exam';
+export type CatalogFilter =
+  | 'all'
+  | 'general'
+  | 'state'
+  | 'unanswered'
+  | 'mistakes'
+  | 'topic'
+  | 'chapter';
 export type SyncStatus = 'idle' | 'syncing' | 'synced' | 'error';
+export type MasteryLevel = 'neu' | 'unsicher' | 'gelernt' | 'gemeistert';
 
 export interface QuestionProgress {
   selectedIndex: number;
   isCorrect: boolean;
+  streak: number;
   updatedAt: number;
 }
 
@@ -28,11 +37,44 @@ export interface AuthUserInfo {
   email: string;
 }
 
+export function normalizeStreak(entry?: QuestionProgress): number {
+  if (!entry) return 0;
+  if (typeof entry.streak === 'number') return entry.streak;
+  return entry.isCorrect ? 1 : 0;
+}
+
+export function getMasteryLevel(entry?: QuestionProgress): MasteryLevel {
+  if (!entry) return 'neu';
+  if (!entry.isCorrect) return 'unsicher';
+  const streak = normalizeStreak(entry);
+  if (streak >= 3) return 'gemeistert';
+  return 'gelernt';
+}
+
+/**
+ * Spaced-Repetition priority score (lower = show earlier):
+ * 0: Unsicher (last answer wrong)
+ * 1: Neu (never answered)
+ * 2: Gelernt (streak 1)
+ * 3: Gelernt (streak 2)
+ * 4: Gemeistert (streak >= 3)
+ */
+export function getSpacedRepetitionPriority(entry?: QuestionProgress): number {
+  const level = getMasteryLevel(entry);
+  if (level === 'unsicher') return 0;
+  if (level === 'neu') return 1;
+  if (level === 'gelernt') {
+    return normalizeStreak(entry) <= 1 ? 2 : 3;
+  }
+  return 4;
+}
+
 interface AppState {
   // Transient navigation & sync status
   activeView: AppView;
   catalogFilter: CatalogFilter;
   selectedTopic: string;
+  selectedChapterId: string;
   authUser: AuthUserInfo | null;
   syncStatus: SyncStatus;
   syncError: string | null;
@@ -55,8 +97,10 @@ interface AppState {
   // Navigation actions
   setActiveView: (view: AppView) => void;
   openCatalogWithFilter: (filter: CatalogFilter, topic?: string) => void;
+  openCatalogWithChapter: (chapterId: string) => void;
   setCatalogFilter: (filter: CatalogFilter) => void;
   setSelectedTopic: (topic: string) => void;
+  setSelectedChapterId: (chapterId: string) => void;
 
   // Settings actions
   setSelectedState: (stateCode: StateCode) => void;
@@ -94,7 +138,7 @@ export const applyThemeToDocument = (theme: ThemeMode) => {
   }
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme) {
-    metaTheme.setAttribute('content', theme === 'dark' ? '#0f172a' : '#ffffff');
+    metaTheme.setAttribute('content', theme === 'dark' ? '#0B0D10' : '#FAF9F6');
   }
 };
 
@@ -104,6 +148,7 @@ export const useAppStore = create<AppState>()(
       activeView: 'dashboard',
       catalogFilter: 'all',
       selectedTopic: '',
+      selectedChapterId: '1.1',
       authUser: null,
       syncStatus: 'idle',
       syncError: null,
@@ -113,7 +158,7 @@ export const useAppStore = create<AppState>()(
       selectedState: 'bw',
       theme: 'dark',
       apiKey: '',
-      aiModel: 'gemini-2.5-flash',
+      aiModel: 'auto',
       translationLang: 'none',
       alwaysShowTranslation: true,
       settingsUpdatedAt: 0,
@@ -130,8 +175,16 @@ export const useAppStore = create<AppState>()(
           selectedTopic: topic ?? state.selectedTopic,
         })),
 
+      openCatalogWithChapter: (chapterId) =>
+        set({
+          activeView: 'catalog',
+          catalogFilter: 'chapter',
+          selectedChapterId: chapterId,
+        }),
+
       setCatalogFilter: (filter) => set({ catalogFilter: filter }),
       setSelectedTopic: (topic) => set({ selectedTopic: topic }),
+      setSelectedChapterId: (selectedChapterId) => set({ selectedChapterId }),
 
       setSelectedState: (selectedState) =>
         set((state) => ({
@@ -188,26 +241,37 @@ export const useAppStore = create<AppState>()(
         })),
 
       recordAnswer: (questionId, selectedIndex, isCorrect) =>
-        set((state) => ({
-          progress: {
-            ...state.progress,
-            [questionId]: {
-              selectedIndex,
-              isCorrect,
-              updatedAt: Date.now(),
+        set((state) => {
+          const prev = state.progress[questionId];
+          const prevStreak = normalizeStreak(prev);
+          const nextStreak = isCorrect ? prevStreak + 1 : 0;
+
+          return {
+            progress: {
+              ...state.progress,
+              [questionId]: {
+                selectedIndex,
+                isCorrect,
+                streak: nextStreak,
+                updatedAt: Date.now(),
+              },
             },
-          },
-          syncRevision: state.syncRevision + 1,
-        })),
+            syncRevision: state.syncRevision + 1,
+          };
+        }),
 
       recordBulkAnswers: (entries) =>
         set((state) => {
           const nextProgress = { ...state.progress };
           const now = Date.now();
           for (const entry of entries) {
+            const prev = nextProgress[entry.questionId];
+            const prevStreak = normalizeStreak(prev);
+            const nextStreak = entry.isCorrect ? prevStreak + 1 : 0;
             nextProgress[entry.questionId] = {
               selectedIndex: entry.selectedIndex,
               isCorrect: entry.isCorrect,
+              streak: nextStreak,
               updatedAt: now,
             };
           }
@@ -272,11 +336,18 @@ export const useAppStore = create<AppState>()(
       mergeWithCloudPayload: (remote) => {
         const local = get();
 
-        const mergedProgress: Record<string, QuestionProgress> = { ...remote.progress };
-        for (const [qId, localEntry] of Object.entries(local.progress)) {
+        const mergedProgress: Record<string, QuestionProgress> = {};
+        for (const [qId, remEntry] of Object.entries(remote.progress ?? {})) {
+          mergedProgress[qId] = {
+            ...remEntry,
+            streak: normalizeStreak(remEntry),
+          };
+        }
+        for (const [qId, locEntry] of Object.entries(local.progress)) {
+          const normalizedLoc = { ...locEntry, streak: normalizeStreak(locEntry) };
           const remoteEntry = mergedProgress[qId];
-          if (!remoteEntry || (localEntry.updatedAt ?? 0) > (remoteEntry.updatedAt ?? 0)) {
-            mergedProgress[qId] = localEntry;
+          if (!remoteEntry || (normalizedLoc.updatedAt ?? 0) > (remoteEntry.updatedAt ?? 0)) {
+            mergedProgress[qId] = normalizedLoc;
           }
         }
 
@@ -338,6 +409,10 @@ export const useAppStore = create<AppState>()(
 
       applyRemoteRealtimeUpdate: (remote) => {
         const local = get();
+        const normalizedProgress: Record<string, QuestionProgress> = {};
+        for (const [qId, entry] of Object.entries(remote.progress ?? {})) {
+          normalizedProgress[qId] = { ...entry, streak: normalizeStreak(entry) };
+        }
         applyThemeToDocument(remote.theme);
         set({
           selectedState: remote.selectedState,
@@ -347,7 +422,7 @@ export const useAppStore = create<AppState>()(
           translationLang: remote.translationLang,
           alwaysShowTranslation: remote.alwaysShowTranslation,
           settingsUpdatedAt: Math.max(remote.settingsUpdatedAt ?? 0, local.settingsUpdatedAt ?? 0),
-          progress: remote.progress ?? {},
+          progress: normalizedProgress,
           aiCache: remote.aiCache ?? {},
           syncStatus: 'synced',
           syncError: null,

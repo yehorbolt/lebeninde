@@ -16,7 +16,11 @@ import {
 import { BUNDESLAENDER } from '../data';
 import type { StateCode, TranslationLang } from '../types/question';
 import { useAppStore } from '../store/useAppStore';
-import { AVAILABLE_AI_MODELS } from '../services/aiTutor';
+import {
+  DEFAULT_AI_MODELS,
+  fetchAvailableGeminiModels,
+  type AiModelOption,
+} from '../services/aiTutor';
 import { TRANSLATION_LANGUAGES } from '../services/translations';
 
 interface SettingsModalProps {
@@ -47,6 +51,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
   const [draftKey, setDraftKey] = useState(apiKey);
   const [showKey, setShowKey] = useState(false);
   const [savedNotice, setSavedNotice] = useState(false);
+  const [modelOptions, setModelOptions] = useState<AiModelOption[]>(DEFAULT_AI_MODELS);
+  const [loadingModels, setLoadingModels] = useState(false);
   const [confirmResetProgress, setConfirmResetProgress] = useState(false);
   const [confirmClearCache, setConfirmClearCache] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
@@ -59,6 +65,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
       setConfirmResetProgress(false);
       setConfirmClearCache(false);
       setStatusMessage(null);
+
+      if (apiKey.trim()) {
+        setLoadingModels(true);
+        void fetchAvailableGeminiModels(apiKey)
+          .then((discovered) => {
+            if (discovered.length > 0) {
+              setModelOptions([DEFAULT_AI_MODELS[0], ...discovered]);
+            }
+          })
+          .finally(() => setLoadingModels(false));
+      }
     }
   }, [isOpen, apiKey]);
 
@@ -66,19 +83,31 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
 
   const handleSaveKey = (e: React.FormEvent) => {
     e.preventDefault();
-    setApiKey(draftKey.trim());
+    const cleaned = draftKey.trim();
+    setApiKey(cleaned);
     setSavedNotice(true);
     setTimeout(() => setSavedNotice(false), 2500);
+
+    if (cleaned) {
+      setLoadingModels(true);
+      void fetchAvailableGeminiModels(cleaned)
+        .then((discovered) => {
+          if (discovered.length > 0) {
+            setModelOptions([DEFAULT_AI_MODELS[0], ...discovered]);
+          }
+        })
+        .finally(() => setLoadingModels(false));
+    }
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-950/70 backdrop-blur-sm pt-safe p-0 sm:p-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-md pt-safe p-0 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="settings-modal-title"
     >
-      <div className="w-full sm:max-w-lg max-h-[85dvh] sm:max-h-[90dvh] overflow-y-auto rounded-t-3xl sm:rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-5 sm:p-6 pb-safe-modal space-y-6">
+      <div className="w-full sm:max-w-lg max-h-[85dvh] sm:max-h-[90dvh] overflow-y-auto rounded-t-3xl sm:rounded-3xl glass-modal p-5 sm:p-6 pb-safe-modal space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
           <h2
@@ -221,7 +250,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 placeholder="API-Schlüssel hier einfügen …"
                 autoComplete="off"
                 spellCheck={false}
-                className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 pl-10 pr-11 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 pl-10 pr-11 py-2.5 text-base sm:text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
               <button
                 type="button"
@@ -240,19 +269,28 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </div>
 
           <div className="space-y-1.5">
-            <label
-              htmlFor="gemini-model-select"
-              className="block text-xs font-semibold text-slate-700 dark:text-slate-300"
-            >
-              KI-Modell
-            </label>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="gemini-model-select"
+                className="block text-xs font-semibold text-slate-700 dark:text-slate-300"
+              >
+                KI-Modell
+              </label>
+              {loadingModels && (
+                <span className="text-[11px] text-amber-500 font-medium">
+                  Lade verfügbare Modelle …
+                </span>
+              )}
+            </div>
             <select
               id="gemini-model-select"
-              value={aiModel}
+              value={
+                modelOptions.some((m) => m.id === aiModel) ? aiModel : 'auto'
+              }
               onChange={(e) => setAiModel(e.target.value)}
               className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
-              {AVAILABLE_AI_MODELS.map((m) => (
+              {modelOptions.map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.label}
                 </option>

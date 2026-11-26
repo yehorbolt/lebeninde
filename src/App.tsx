@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Home,
+  BookMarked,
   BookOpen,
   GraduationCap,
   Settings,
@@ -18,6 +19,7 @@ import { applyThemeToDocument, useAppStore, type AppView } from './store/useAppS
 import { TRANSLATION_LANGUAGES, TRANSLATION_META_BY_CODE } from './services/translations';
 import { useCloudSync } from './hooks/useCloudSync';
 import { Dashboard } from './components/Dashboard';
+import { KursbuchView } from './components/KursbuchView';
 import { StudyCatalog } from './components/StudyCatalog';
 import { ExamSimulator } from './components/ExamSimulator';
 import { SettingsModal } from './components/SettingsModal';
@@ -81,16 +83,48 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const navItems: Array<{ id: AppView; label: string; icon: React.ReactNode }> = [
-    { id: 'dashboard', label: 'Startseite', icon: <Home className="w-5 h-5" /> },
-    { id: 'catalog', label: 'Fragenkatalog', icon: <BookOpen className="w-5 h-5" /> },
-    { id: 'exam', label: 'Prüfung', icon: <GraduationCap className="w-5 h-5" /> },
-  ];
+  const navItems: Array<{ id: AppView; label: string; mobileLabel: string; icon: React.ReactNode }> =
+    [
+      {
+        id: 'dashboard',
+        label: 'Startseite',
+        mobileLabel: 'Startseite',
+        icon: <Home className="w-5 h-5" />,
+      },
+      {
+        id: 'kursbuch',
+        label: 'Nach Kursbuch',
+        mobileLabel: 'Kursbuch',
+        icon: <BookMarked className="w-5 h-5" />,
+      },
+      {
+        id: 'catalog',
+        label: 'Fragenkatalog',
+        mobileLabel: 'Katalog',
+        icon: <BookOpen className="w-5 h-5" />,
+      },
+      {
+        id: 'exam',
+        label: 'Prüfung',
+        mobileLabel: 'Prüfung',
+        icon: <GraduationCap className="w-5 h-5" />,
+      },
+    ];
 
   return (
-    <div className="min-h-dvh flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors">
-      {/* Top App Bar (pt-safe clears iOS Dynamic Island / status bar in standalone PWA mode) */}
-      <header className="sticky top-0 z-30 pt-safe bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div className="relative min-h-dvh flex flex-col bg-[#FAF9F6] text-[#141413] dark:bg-[#0B0D10] dark:text-[#F3F4F6] transition-colors overflow-x-clip">
+      {/* Ambient Aurora Mesh Background (makes frosted glass Bento & Dock refraction visibly shine) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      >
+        <div className="absolute -top-28 -left-20 w-[26rem] h-[26rem] rounded-full bg-amber-400/25 dark:bg-amber-500/[0.14] blur-[95px]" />
+        <div className="absolute top-1/4 -right-24 w-[24rem] h-[24rem] rounded-full bg-emerald-400/20 dark:bg-emerald-500/[0.11] blur-[100px]" />
+        <div className="absolute -bottom-24 left-1/4 w-[28rem] h-[28rem] rounded-full bg-sky-400/20 dark:bg-indigo-500/[0.12] blur-[105px]" />
+      </div>
+
+      {/* iOS 18 Translucent Glass Top Bar */}
+      <header className="sticky top-0 z-30 pt-safe glass-header">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 min-h-[56px] py-2 flex items-center justify-between gap-2">
           {/* App Brand & Title */}
           <button
@@ -98,23 +132,23 @@ export const App: React.FC = () => {
             onClick={() => handleNavigate('dashboard')}
             className="flex items-center gap-2.5 text-left group min-w-0 shrink"
           >
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex flex-col shrink-0 shadow-sm">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden border border-stone-300/80 dark:border-white/20 flex flex-col shrink-0 shadow-sm">
               <div className="h-1/3 bg-slate-950" />
               <div className="h-1/3 bg-red-600" />
               <div className="h-1/3 bg-amber-400" />
             </div>
             <div className="min-w-0">
-              <div className="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight whitespace-nowrap">
+              <div className="text-sm sm:text-base font-extrabold tracking-tight text-[#141413] dark:text-white leading-tight whitespace-nowrap">
                 Leben in Deutschland
               </div>
-              <div className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 leading-tight truncate">
+              <div className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 leading-tight truncate">
                 {stateInfo.name}
               </div>
             </div>
           </button>
 
-          {/* Desktop Navigation Pills */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl shrink-0">
+          {/* Desktop iOS-style Translucent Segmented Pill Tabs */}
+          <nav className="hidden md:flex items-center gap-0.5 bg-black/[0.04] dark:bg-white/[0.06] backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.1] p-1 rounded-2xl shrink-0">
             {navItems.map((item) => {
               const active = activeView === item.id;
               return (
@@ -122,10 +156,10 @@ export const App: React.FC = () => {
                   key={item.id}
                   type="button"
                   onClick={() => handleNavigate(item.id)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                     active
-                      ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-sm'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-white/95 dark:bg-white/[0.14] text-[#141413] dark:text-white shadow-sm ring-1 ring-black/[0.04] dark:ring-white/[0.12]'
+                      : 'text-stone-600 dark:text-slate-400 hover:text-[#141413] dark:hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -134,7 +168,7 @@ export const App: React.FC = () => {
             })}
           </nav>
 
-          {/* Compact Icon-Only Actions: Translation, Cloud Sync, Theme & Settings */}
+          {/* Compact Icon-Only Actions */}
           <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
             {/* Compact Translation Icon Dropdown */}
             <div className="relative" ref={langMenuRef}>
@@ -146,8 +180,8 @@ export const App: React.FC = () => {
                 title={`Übersetzung: ${activeLangMeta.label}`}
                 className={`relative p-2 rounded-xl transition flex items-center justify-center ${
                   translationLang !== 'none'
-                    ? 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-300'
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300'
+                    : 'text-stone-600 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08]'
                 }`}
               >
                 <Languages className="w-5 h-5" />
@@ -159,8 +193,8 @@ export const App: React.FC = () => {
               </button>
 
               {langMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-1.5 z-50">
-                  <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div className="absolute right-0 mt-2 w-56 rounded-2xl glass-modal py-1.5 z-50">
+                  <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-stone-500 dark:text-slate-400">
                     Übersetzungshilfe
                   </div>
                   {TRANSLATION_LANGUAGES.map((l) => {
@@ -175,8 +209,8 @@ export const App: React.FC = () => {
                         }}
                         className={`w-full px-3 py-2 text-left text-xs sm:text-sm flex items-center justify-between gap-2 transition ${
                           isSelected
-                            ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 font-bold'
-                            : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium'
+                            ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-bold'
+                            : 'text-[#141413] dark:text-slate-200 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] font-medium'
                         }`}
                       >
                         <span className="truncate">
@@ -203,8 +237,8 @@ export const App: React.FC = () => {
               }
               className={`relative p-2 rounded-xl transition ${
                 authUser
-                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
+                  : 'text-stone-600 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08]'
               }`}
             >
               {syncStatus === 'syncing' ? (
@@ -228,8 +262,8 @@ export const App: React.FC = () => {
               aria-label={
                 theme === 'dark' ? 'Zum hellen Design wechseln' : 'Zum dunklen Design wechseln'
               }
-              title={theme === 'dark' ? 'Helles Design' : 'Dunkles Design'}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              title={theme === 'dark' ? 'Helles Papier-Design' : 'Dunkles OLED-Design'}
+              className="p-2 rounded-xl text-stone-600 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
@@ -240,7 +274,7 @@ export const App: React.FC = () => {
               onClick={() => setSettingsOpen(true)}
               aria-label="Einstellungen öffnen"
               title="Einstellungen"
-              className="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+              className="relative p-2 rounded-xl text-stone-600 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition"
             >
               <Settings className="w-5 h-5" />
               <span
@@ -260,8 +294,8 @@ export const App: React.FC = () => {
 
       {/* Guard Confirmation Banner if Navigating Away During Active Exam */}
       {pendingView && (
-        <div className="max-w-3xl w-full mx-auto px-4 pt-4">
-          <div className="rounded-2xl bg-rose-500/10 border border-rose-500/35 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="relative z-10 max-w-3xl w-full mx-auto px-4 pt-4">
+          <div className="bento-card border-rose-500/35 bg-rose-500/10 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-start gap-2.5 text-sm text-rose-900 dark:text-rose-200">
               <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
               <span>
@@ -273,7 +307,7 @@ export const App: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setPendingView(null)}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/80 dark:bg-white/[0.08] text-[#141413] dark:text-slate-200 border hairline-divider"
               >
                 In der Prüfung bleiben
               </button>
@@ -295,7 +329,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-5 pb-28 md:pb-10">
+      <main className="relative z-10 flex-1 max-w-3xl w-full mx-auto px-4 py-5 pb-32 md:pb-12">
         {activeView === 'dashboard' && (
           <Dashboard
             onStartExam={handleQuickStartExam}
@@ -303,6 +337,8 @@ export const App: React.FC = () => {
             onOpenAuth={() => setAuthModalOpen(true)}
           />
         )}
+
+        {activeView === 'kursbuch' && <KursbuchView />}
 
         {activeView === 'catalog' && (
           <StudyCatalog onOpenSettings={() => setSettingsOpen(true)} />
@@ -318,32 +354,34 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Mobile Sticky Bottom Navigation Bar */}
-      <nav
-        aria-label="Hauptnavigation"
-        className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 pb-safe"
-      >
-        <div className="grid grid-cols-3 max-w-lg mx-auto">
-          {navItems.map((item) => {
-            const active = activeView === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleNavigate(item.id)}
-                className={`flex flex-col items-center justify-center py-2.5 gap-1 text-xs font-semibold transition ${
-                  active
-                    ? 'text-amber-600 dark:text-amber-400'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
-                }`}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+      {/* Mobile Floating iOS 18 Translucent Glass Capsule Dock */}
+      <div className="md:hidden fixed inset-x-0 bottom-dock-safe z-30 px-3 pointer-events-none">
+        <nav
+          aria-label="Hauptnavigation"
+          className="pointer-events-auto max-w-md mx-auto rounded-3xl glass-dock p-1.5"
+        >
+          <div className="grid grid-cols-4 gap-1">
+            {navItems.map((item) => {
+              const active = activeView === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleNavigate(item.id)}
+                  className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-2xl gap-0.5 text-[11px] font-semibold transition ${
+                    active
+                      ? 'bg-white/90 dark:bg-white/[0.14] text-amber-600 dark:text-amber-400 shadow-sm ring-1 ring-black/[0.04] dark:ring-white/[0.1]'
+                      : 'text-stone-600 dark:text-slate-400 hover:text-[#141413] dark:hover:text-slate-200'
+                  }`}
+                >
+                  {item.icon}
+                  <span className="truncate max-w-full">{item.mobileLabel}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+      </div>
 
       {/* Settings Modal */}
       <SettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
