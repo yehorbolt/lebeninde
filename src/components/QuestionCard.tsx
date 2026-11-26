@@ -37,6 +37,11 @@ interface QuestionCardProps {
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'] as const;
 
+/** Inserts a zero-width break opportunity after slashes (e.g. "Ministerpräsidentin/Ministerpräsident") */
+function allowSlashWrap(text: string): string {
+  return text.replace(/\//g, '/\u200B');
+}
+
 const MASTERY_BADGE_CONFIG: Record<
   MasteryLevel,
   { label: string; classes: string }
@@ -188,18 +193,18 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
       {/* Editorial Question Text */}
       <div className="mb-5 space-y-2">
-        <h2 className="text-[17px] sm:text-[19px] font-semibold text-[#141413] dark:text-[#F3F4F6] leading-[1.55] tracking-[-0.01em]">
-          {question.question}
+        <h2 className="text-[17px] sm:text-[19px] font-semibold text-[#141413] dark:text-[#F3F4F6] leading-[1.55] tracking-[-0.01em] break-words [overflow-wrap:anywhere] hyphens-auto">
+          {allowSlashWrap(question.question)}
         </h2>
 
         {showTranslatedText && translation && (
           <p
             dir={rtl ? 'rtl' : 'ltr'}
-            className={`text-sm sm:text-[15px] text-indigo-700/90 dark:text-indigo-300/90 leading-relaxed font-normal ${
+            className={`text-sm sm:text-[15px] text-indigo-700/90 dark:text-indigo-300/90 leading-relaxed font-normal break-words [overflow-wrap:anywhere] ${
               rtl ? 'text-right' : 'text-left'
             }`}
           >
-            {translation.q}
+            {allowSlashWrap(translation.q)}
           </p>
         )}
       </div>
@@ -278,18 +283,18 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 {OPTION_LETTERS[idx]}
               </span>
 
-              <div className="flex-1 min-w-0 space-y-0.5">
-                <div className="text-[15px] sm:text-base font-medium leading-relaxed">
-                  {optionText}
+              <div className="flex-1 min-w-0 space-y-0.5 pr-1">
+                <div className="text-[15px] sm:text-base font-medium leading-relaxed break-words [overflow-wrap:anywhere] hyphens-auto">
+                  {allowSlashWrap(optionText)}
                 </div>
                 {translatedOpt && translatedOpt !== optionText && (
                   <div
                     dir={rtl ? 'rtl' : 'ltr'}
-                    className={`text-xs sm:text-sm text-indigo-700/85 dark:text-indigo-300/80 leading-relaxed ${
+                    className={`text-xs sm:text-sm text-indigo-700/85 dark:text-indigo-300/80 leading-relaxed break-words [overflow-wrap:anywhere] ${
                       rtl ? 'text-right' : 'text-left'
                     }`}
                   >
-                    {translatedOpt}
+                    {allowSlashWrap(translatedOpt)}
                   </div>
                 )}
               </div>
