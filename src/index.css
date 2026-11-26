@@ -10,12 +10,12 @@
 
   body {
     min-height: 100dvh;
-    background-color: #eef2f9;
+    background-color: #f4f3ee;
     color: #0f172a;
   }
 
   html.dark body {
-    background-color: #060913;
+    background-color: #0b0e14;
     color: #f8fafc;
   }
 
@@ -26,7 +26,7 @@
   }
 
   html.dark select option {
-    background-color: #111827;
+    background-color: #141923;
     color: #f8fafc;
   }
 
@@ -67,189 +67,136 @@
 }
 
 /* ============================================================================
-   1:1 Apple iOS / Liquid Glass (UIVisualEffectView UltraThinMaterial) System
+   Balanced iOS 18 Smoked/Milky Frosted Glass + High-Contrast Editorial System
    ============================================================================ */
 @layer components {
-  /* Rich iOS-style multi-layered mesh wallpaper so glass has real color & light to refract */
+  /* Calm, neutral architectural backdrop with subtle ambient depth (no neon color cast) */
   .ios-wallpaper {
-    background-color: #e8eef7;
+    background-color: #f4f3ee;
     background-image:
-      radial-gradient(at 12% 8%, rgba(251, 191, 36, 0.36) 0px, transparent 52%),
-      radial-gradient(at 88% 16%, rgba(56, 189, 248, 0.38) 0px, transparent 54%),
-      radial-gradient(at 82% 82%, rgba(52, 211, 153, 0.3) 0px, transparent 55%),
-      radial-gradient(at 16% 85%, rgba(167, 139, 250, 0.32) 0px, transparent 52%),
-      linear-gradient(160deg, #f5f7fb 0%, #e4ebf5 50%, #eef2f9 100%);
+      radial-gradient(at 15% 10%, rgba(245, 158, 11, 0.09) 0px, transparent 50%),
+      radial-gradient(at 85% 18%, rgba(56, 189, 248, 0.08) 0px, transparent 52%),
+      radial-gradient(at 50% 90%, rgba(99, 102, 241, 0.06) 0px, transparent 55%),
+      linear-gradient(180deg, #f7f6f2 0%, #efeee8 100%);
   }
 
   html.dark .ios-wallpaper {
-    background-color: #060913;
+    background-color: #0b0e14;
     background-image:
-      radial-gradient(at 10% 6%, rgba(245, 158, 11, 0.28) 0px, transparent 50%),
-      radial-gradient(at 90% 14%, rgba(14, 165, 233, 0.26) 0px, transparent 52%),
-      radial-gradient(at 80% 86%, rgba(16, 185, 129, 0.22) 0px, transparent 54%),
-      radial-gradient(at 15% 82%, rgba(99, 102, 241, 0.26) 0px, transparent 52%),
-      linear-gradient(165deg, #090d1c 0%, #050811 52%, #0a1020 100%);
+      radial-gradient(at 15% 8%, rgba(245, 158, 11, 0.08) 0px, transparent 48%),
+      radial-gradient(at 88% 20%, rgba(56, 189, 248, 0.07) 0px, transparent 50%),
+      radial-gradient(at 50% 92%, rgba(99, 102, 241, 0.07) 0px, transparent 55%),
+      linear-gradient(180deg, #0d1119 0%, #090c12 100%);
   }
 
-  /* Top translucent iOS navigation bar */
+  /* Top translucent glass header (lets scrolled cards softly blur behind it) */
   .glass-header {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.42) 0%,
-      rgba(255, 255, 255, 0.24) 100%
-    );
-    -webkit-backdrop-filter: blur(36px) saturate(210%);
-    backdrop-filter: blur(36px) saturate(210%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-    box-shadow: 0 4px 24px -4px rgba(15, 23, 42, 0.06);
+    background: rgba(247, 246, 242, 0.76);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
   }
 
   html.dark .glass-header {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.09) 0%,
-      rgba(255, 255, 255, 0.03) 100%
-    );
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: 0 4px 28px -4px rgba(0, 0, 0, 0.45);
+    background: rgba(13, 17, 25, 0.74);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   }
 
-  /* Floating iOS Control-Center / Tab-Bar Glass Capsule */
+  /* Floating iOS Capsule Tab Dock (airy translucent glass so content visibly glides underneath) */
   .glass-dock {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.56) 0%,
-      rgba(255, 255, 255, 0.32) 100%
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.26) 100%
     );
-    -webkit-backdrop-filter: blur(40px) saturate(220%);
-    backdrop-filter: blur(40px) saturate(220%);
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(22px) saturate(185%);
+    backdrop-filter: blur(22px) saturate(185%);
+    border: 1px solid rgba(255, 255, 255, 0.72);
     box-shadow:
-      0 14px 36px -6px rgba(15, 23, 42, 0.16),
-      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.4);
+      0 12px 32px -6px rgba(15, 23, 42, 0.14),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
   }
 
   html.dark .glass-dock {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.16) 0%,
-      rgba(255, 255, 255, 0.06) 55%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow:
-      0 18px 42px -6px rgba(0, 0, 0, 0.68),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.38),
-      inset 1px 0 0 0 rgba(255, 255, 255, 0.14),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.08);
-  }
-
-  /* 1:1 iOS Control Center / Widget Ultra-Thin Glass Tile */
-  .bento-card {
-    border-radius: 1.5rem;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.52) 0%,
-      rgba(255, 255, 255, 0.28) 55%,
-      rgba(255, 255, 255, 0.38) 100%
-    );
-    -webkit-backdrop-filter: blur(36px) saturate(200%);
-    backdrop-filter: blur(36px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.78);
-    box-shadow:
-      0 10px 32px -8px rgba(15, 23, 42, 0.1),
-      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.92),
-      inset 1px 0 0 0 rgba(255, 255, 255, 0.5),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
-  }
-
-  html.dark .bento-card {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.13) 0%,
-      rgba(255, 255, 255, 0.05) 55%,
-      rgba(255, 255, 255, 0.08) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow:
-      0 14px 36px -8px rgba(0, 0, 0, 0.52),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
-      inset 1px 0 0 0 rgba(255, 255, 255, 0.12),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.06),
-      inset 0 0 24px 0 rgba(255, 255, 255, 0.02);
-  }
-
-  /* Question Card: Translucent iOS Glass with effortless reading clarity */
-  .editorial-card {
-    border-radius: 1.5rem;
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.62) 0%,
-      rgba(255, 255, 255, 0.38) 100%
-    );
-    -webkit-backdrop-filter: blur(40px) saturate(200%);
-    backdrop-filter: blur(40px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.82);
-    box-shadow:
-      0 12px 34px -8px rgba(15, 23, 42, 0.1),
-      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.35);
-  }
-
-  html.dark .editorial-card {
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0.06) 60%,
-      rgba(255, 255, 255, 0.09) 100%
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(15, 20, 30, 0.32) 100%
     );
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow:
-      0 16px 40px -8px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.34),
-      inset 1px 0 0 0 rgba(255, 255, 255, 0.12),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.07);
+      0 16px 38px -6px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.24);
   }
 
-  /* Inner interactive glass elements (inputs, selects, answer buttons, pills) */
+  /* Bento Card: Creamy frosted glass in Light, smoked obsidian glass in Dark */
+  .bento-card {
+    border-radius: 1.35rem;
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow:
+      0 4px 18px -4px rgba(15, 23, 42, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+  }
+
+  html.dark .bento-card {
+    background: rgba(21, 26, 36, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 26px -6px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Editorial Question Card: High-contrast paper/ink clarity for long reading */
+  .editorial-card {
+    border-radius: 1.35rem;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    backdrop-filter: blur(20px) saturate(130%);
+    border: 1px solid rgba(15, 23, 42, 0.09);
+    box-shadow:
+      0 4px 20px -4px rgba(15, 23, 42, 0.05),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+  }
+
+  html.dark .editorial-card {
+    background: rgba(20, 24, 33, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 10px 28px -8px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+  }
+
+  /* Inner interactive controls (selects, answer buttons, inset boxes) */
   .glass-inset {
-    background: rgba(255, 255, 255, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.75);
+    background: rgba(244, 243, 238, 0.75);
+    border: 1px solid rgba(15, 23, 42, 0.09);
   }
 
   html.dark .glass-inset {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* iOS Sheet / Popover Glass */
+  /* Modal & Popover Frosted Sheet */
   .glass-modal {
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.74) 0%,
-      rgba(245, 248, 255, 0.56) 100%
-    );
-    -webkit-backdrop-filter: blur(44px) saturate(210%);
-    backdrop-filter: blur(44px) saturate(210%);
-    border: 1px solid rgba(255, 255, 255, 0.88);
+    background: rgba(252, 251, 248, 0.9);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid rgba(15, 23, 42, 0.1);
     box-shadow:
-      0 24px 54px -12px rgba(15, 23, 42, 0.25),
-      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95);
+      0 24px 48px -12px rgba(15, 23, 42, 0.2),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
   }
 
   html.dark .glass-modal {
-    background: linear-gradient(
-      145deg,
-      rgba(30, 38, 56, 0.62) 0%,
-      rgba(15, 20, 32, 0.52) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(20, 25, 35, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow:
-      0 28px 60px -12px rgba(0, 0, 0, 0.8),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+      0 28px 56px -12px rgba(0, 0, 0, 0.78),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
   }
 
   .hairline-divider {
@@ -257,6 +204,6 @@
   }
 
   html.dark .hairline-divider {
-    border-color: rgba(255, 255, 255, 0.13);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 }

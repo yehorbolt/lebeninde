@@ -78,17 +78,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="md:col-span-7 bento-card p-5 sm:p-6 flex flex-col justify-between gap-5">
           <div className="flex items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-stone-400 dark:text-slate-500">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Gesamtfortschritt · {stateInfo.name}
               </span>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#141413] dark:text-white">
+              <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                 {answeredCorrectCount}{' '}
-                <span className="text-stone-400 dark:text-slate-500 font-medium text-base sm:text-lg">
+                <span className="text-slate-500 dark:text-slate-400 font-semibold text-base sm:text-lg">
                   / {totalCount} richtig
                 </span>
               </h1>
-              <p className="text-xs text-stone-500 dark:text-slate-400">
-                Davon <strong className="text-emerald-600 dark:text-emerald-400">{masteredCount}</strong>{' '}
+              <p className="text-xs text-slate-600 dark:text-slate-300">
+                Davon <strong className="text-emerald-700 dark:text-emerald-400">{masteredCount}</strong>{' '}
                 dauerhaft gemeistert (3× in Folge)
               </p>
             </div>
@@ -103,7 +103,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="9"
-                  className="text-[#F3F1EC] dark:text-white/[0.06]"
+                  className="text-slate-200 dark:text-white/[0.09]"
                 />
                 {/* Learned segment (amber) */}
                 {learnedArc > 0 && (
@@ -116,7 +116,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     strokeWidth="9"
                     strokeDasharray={`${masteredArc + learnedArc} ${circumference}`}
                     strokeLinecap="round"
-                    className="text-amber-400 transition-all duration-500"
+                    className="text-amber-500 dark:text-amber-400 transition-all duration-500"
                   />
                 )}
                 {/* Mastered segment (emerald) */}
@@ -130,15 +130,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     strokeWidth="9"
                     strokeDasharray={`${masteredArc} ${circumference}`}
                     strokeLinecap="round"
-                    className="text-emerald-500 transition-all duration-500"
+                    className="text-emerald-600 dark:text-emerald-400 transition-all duration-500"
                   />
                 )}
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-[#141413] dark:text-white tabular-nums leading-none">
+                <span className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tabular-nums leading-none">
                   {overallCorrectPct}%
                 </span>
-                <span className="text-[10px] font-semibold text-stone-400 dark:text-slate-500 mt-0.5">
+                <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
                   Richtig
                 </span>
               </div>
@@ -146,39 +146,39 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           {/* 4-Stage Spaced-Repetition Pills */}
-          <div className="grid grid-cols-4 gap-2 pt-1">
-            <div className="rounded-xl bg-emerald-500/[0.08] dark:bg-emerald-500/[0.12] border border-emerald-500/20 px-2.5 py-2 text-center">
-              <div className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 truncate">
+          <div className="grid grid-cols-4 gap-1.5 sm:gap-2 pt-1">
+            <div className="rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-600/20 dark:border-emerald-400/25 px-1.5 py-2 text-center">
+              <div className="text-[10px] sm:text-[11px] font-bold tracking-tight text-emerald-800 dark:text-emerald-300">
                 Gemeistert
               </div>
-              <div className="text-base sm:text-lg font-bold text-emerald-700 dark:text-emerald-300 tabular-nums">
+              <div className="text-base sm:text-lg font-extrabold text-emerald-800 dark:text-emerald-300 tabular-nums">
                 {masteredCount}
               </div>
             </div>
 
-            <div className="rounded-xl bg-amber-500/[0.09] dark:bg-amber-500/[0.12] border border-amber-500/20 px-2.5 py-2 text-center">
-              <div className="text-[11px] font-semibold text-amber-800 dark:text-amber-300 truncate">
+            <div className="rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-600/20 dark:border-amber-400/25 px-1.5 py-2 text-center">
+              <div className="text-[10px] sm:text-[11px] font-bold tracking-tight text-amber-900 dark:text-amber-300">
                 Gelernt
               </div>
-              <div className="text-base sm:text-lg font-bold text-amber-800 dark:text-amber-300 tabular-nums">
+              <div className="text-base sm:text-lg font-extrabold text-amber-900 dark:text-amber-300 tabular-nums">
                 {learnedCount}
               </div>
             </div>
 
-            <div className="rounded-xl bg-rose-500/[0.08] dark:bg-rose-500/[0.12] border border-rose-500/20 px-2.5 py-2 text-center">
-              <div className="text-[11px] font-semibold text-rose-700 dark:text-rose-300 truncate">
+            <div className="rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-600/20 dark:border-rose-400/25 px-1.5 py-2 text-center">
+              <div className="text-[10px] sm:text-[11px] font-bold tracking-tight text-rose-800 dark:text-rose-300">
                 Unsicher
               </div>
-              <div className="text-base sm:text-lg font-bold text-rose-700 dark:text-rose-300 tabular-nums">
+              <div className="text-base sm:text-lg font-extrabold text-rose-800 dark:text-rose-300 tabular-nums">
                 {unsureCount}
               </div>
             </div>
 
-            <div className="rounded-xl glass-inset px-2.5 py-2 text-center">
-              <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 truncate">
+            <div className="rounded-xl glass-inset px-1.5 py-2 text-center">
+              <div className="text-[10px] sm:text-[11px] font-bold tracking-tight text-slate-600 dark:text-slate-300">
                 Neu
               </div>
-              <div className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tabular-nums">
+              <div className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tabular-nums">
                 {newCount}
               </div>
             </div>
@@ -244,11 +244,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
 
             <div>
-              <h2 className="text-base font-bold text-[#141413] dark:text-white flex items-center justify-between">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
                 <span>Nach Kursbuch lernen</span>
-                <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
               </h2>
-              <p className="text-xs text-stone-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">
                 Alle 12 Hueber-Kapitel (Modul I–III) + Landesfragen mit Smart-Wiederholung.
               </p>
             </div>
@@ -268,11 +268,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#141413] dark:text-white flex items-center justify-between">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
               <span>Fragenkatalog</span>
-              <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </h3>
-            <p className="text-xs text-stone-500 dark:text-slate-400 mt-1 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
               Alle {totalCount} Fragen filtern, suchen & gezielt üben.
             </p>
           </div>
@@ -299,11 +299,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </span>
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#141413] dark:text-white flex items-center justify-between">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
               <span>Fehler wiederholen</span>
-              <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </h3>
-            <p className="text-xs text-stone-500 dark:text-slate-400 mt-1 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
               {unsureCount > 0
                 ? 'Trainiere deine unsicheren Fragen bis zum Status „Gemeistert“.'
                 : 'Keine offenen Fehler – alles im grünen Bereich!'}
@@ -321,11 +321,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <GraduationCap className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#141413] dark:text-white flex items-center justify-between">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center justify-between">
               <span>Prüfungssimulation</span>
-              <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </h3>
-            <p className="text-xs text-stone-500 dark:text-slate-400 mt-1 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
               33 Zufallsfragen für {stateInfo.name} · 60 Minuten Zeit.
             </p>
           </div>

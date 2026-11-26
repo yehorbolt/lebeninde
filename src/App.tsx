@@ -113,15 +113,13 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-dvh flex flex-col text-slate-900 dark:text-slate-50 transition-colors overflow-x-clip">
-      {/* Fixed 1:1 iOS Mesh Wallpaper + Vibrant Ambient Orbs Behind All Glass Layers */}
+      {/* Subtle Calm Ambient Backdrop (gives gentle frosted glass depth without color-casting text) */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 ios-wallpaper overflow-hidden"
       >
-        <div className="absolute -top-20 -left-16 w-[28rem] h-[28rem] rounded-full bg-amber-400/45 dark:bg-amber-500/30 blur-[90px]" />
-        <div className="absolute top-[22%] -right-20 w-[26rem] h-[26rem] rounded-full bg-sky-400/45 dark:bg-cyan-500/28 blur-[95px]" />
-        <div className="absolute top-[58%] left-[-10%] w-[25rem] h-[25rem] rounded-full bg-violet-400/35 dark:bg-indigo-500/28 blur-[100px]" />
-        <div className="absolute -bottom-24 right-[8%] w-[26rem] h-[26rem] rounded-full bg-emerald-400/35 dark:bg-emerald-500/24 blur-[95px]" />
+        <div className="absolute -top-28 -left-24 w-[26rem] h-[26rem] rounded-full bg-amber-300/15 dark:bg-amber-500/[0.07] blur-[110px]" />
+        <div className="absolute top-[35%] -right-28 w-[26rem] h-[26rem] rounded-full bg-sky-300/15 dark:bg-sky-500/[0.06] blur-[115px]" />
       </div>
 
       {/* iOS 18 Translucent Glass Top Bar */}
@@ -371,8 +369,8 @@ export const App: React.FC = () => {
                   onClick={() => handleNavigate(item.id)}
                   className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-2xl gap-0.5 text-[11px] font-semibold transition ${
                     active
-                      ? 'bg-white/90 dark:bg-white/[0.14] text-amber-600 dark:text-amber-400 shadow-sm ring-1 ring-black/[0.04] dark:ring-white/[0.1]'
-                      : 'text-stone-600 dark:text-slate-400 hover:text-[#141413] dark:hover:text-slate-200'
+                      ? 'bg-white/55 dark:bg-white/[0.14] text-amber-700 dark:text-amber-400 font-bold ring-1 ring-white/70 dark:ring-white/[0.14]'
+                      : 'text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white'
                   }`}
                 >
                   {item.icon}
